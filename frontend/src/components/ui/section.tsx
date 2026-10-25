@@ -8,7 +8,12 @@ export function PageMain({
   className?: string;
 }) {
   return (
-    <main className={cn("flex-1 space-y-5 p-4 sm:p-6 lg:p-8", className)}>
+    <main
+      className={cn(
+        "flex min-h-0 flex-1 flex-col space-y-5 overflow-y-auto p-4 sm:p-6 lg:p-8",
+        className
+      )}
+    >
       {children}
     </main>
   );
@@ -54,12 +59,14 @@ export function Section({
 export function Panel({
   children,
   className,
+  id,
 }: {
   children: React.ReactNode;
   className?: string;
+  id?: string;
 }) {
   return (
-    <div className={cn("surface p-4 sm:p-5", className)}>
+    <div id={id} className={cn("surface p-4 sm:p-5", className)}>
       {children}
     </div>
   );

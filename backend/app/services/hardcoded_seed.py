@@ -69,7 +69,7 @@ def _get_or_create_source(db: Session, city_id: str, force: bool) -> tuple[DataS
                 "Invented geometries and attributes for end-to-end testing. "
                 "Not official flood statistics, census figures, or measured travel times."
             ),
-            provider="Critical 1% project (hardcoded demo)",
+            provider="CRIVAL project (hardcoded demo)",
             license_note="For demonstration and software testing only",
             retrieved_at=datetime.now(timezone.utc),
             provenance={

@@ -127,22 +127,38 @@ export default function MapPage() {
     [alerts, activeAlertId]
   );
 
-  const alertMarkers = useMemo(
+  const alertMarkers = useMemo(() => {
+    const base = alerts.filter(
+      (a) => a.has_reliable_coords && a.lat != null && a.lon != null
+    );
+    // Fan out markers that share the same coordinates so every demo is visible.
+    const seen = new Map<string, number>();
+    return base.map((a) => {
+      const key = `${(a.lat as number).toFixed(5)},${(a.lon as number).toFixed(5)}`;
+      const n = seen.get(key) ?? 0;
+      seen.set(key, n + 1);
+      const angle = n * 2.15;
+      const radius = n === 0 ? 0 : 0.0011 * Math.ceil(n / 5);
+      return {
+        id: a.id,
+        lat: (a.lat as number) + Math.sin(angle) * radius,
+        lon: (a.lon as number) + Math.cos(angle) * radius,
+        title: a.title,
+        severity: a.severity,
+        source_name: a.source_name,
+        is_demo: a.is_demo,
+        is_resolved: a.is_resolved,
+        ingested_at: a.ingested_at,
+        authenticity: a.authenticity,
+      };
+    });
+  }, [alerts]);
+
+  const mapAlerts = useMemo(
     () =>
-      alerts
-        .filter((a) => a.has_reliable_coords && a.lat != null && a.lon != null)
-        .map((a) => ({
-          id: a.id,
-          lat: a.lat as number,
-          lon: a.lon as number,
-          title: a.title,
-          severity: a.severity,
-          source_name: a.source_name,
-          is_demo: a.is_demo,
-          is_resolved: a.is_resolved,
-          ingested_at: a.ingested_at,
-          authenticity: a.authenticity,
-        })),
+      alerts.filter(
+        (a) => !a.is_resolved && (a.has_reliable_coords || a.is_demo)
+      ),
     [alerts]
   );
 
@@ -178,14 +194,22 @@ export default function MapPage() {
     });
   }
 
+  async function placeDemoOnMap() {
+    const a = await createDemo();
+    if (!a) return;
+    setShowAlerts(true);
+    setActiveAlertId(a.id);
+    showOnMap(a);
+  }
+
   return (
-    <>
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Header
         title="Explore Your City"
         subtitle="Click a colored area or a marker to learn more."
       />
-      <PageMain className="flex flex-col gap-4 lg:flex-row lg:space-y-0">
-        <aside className="w-full shrink-0 space-y-3 lg:w-80">
+      <PageMain className="!space-y-0 flex min-h-0 flex-1 flex-col gap-3 overflow-hidden p-3 sm:p-4 lg:flex-row">
+        <aside className="w-full shrink-0 space-y-3 overflow-y-auto quiet-scroll max-h-[42vh] lg:max-h-none lg:h-full lg:w-80 lg:pr-1">
           <Panel className="space-y-3">
             <p className="text-sm font-semibold">Show on map</p>
             <label className="flex items-center gap-2 text-sm">
@@ -246,11 +270,49 @@ export default function MapPage() {
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => void createDemo().then((a) => a && showOnMap(a))}
+                onClick={() => void placeDemoOnMap()}
               >
                 Demo Alert on map
               </Button>
             </div>
+            {mapAlerts.length > 0 ? (
+              <div className="space-y-1.5 border-t border-border pt-2">
+                <p className="text-xs font-semibold text-muted-foreground">
+                  Alerts on this map ({mapAlerts.length})
+                </p>
+                <ul className="max-h-36 space-y-1 overflow-y-auto quiet-scroll">
+                  {mapAlerts.slice(0, 12).map((a) => (
+                    <li key={a.id}>
+                      <button
+                        type="button"
+                        className={cn(
+                          "w-full rounded-lg border px-2 py-1.5 text-left text-xs transition-colors",
+                          activeAlertId === a.id
+                            ? "border-primary bg-primary/10"
+                            : "border-border hover:bg-secondary"
+                        )}
+                        onClick={() => {
+                          setShowAlerts(true);
+                          setActiveAlertId(a.id);
+                          showOnMap(a);
+                        }}
+                      >
+                        <span className="font-medium">
+                          {a.is_demo ? "Demo · " : ""}
+                          {a.title}
+                        </span>
+                        <span className="mt-0.5 block text-muted-foreground">
+                          {a.area_label || a.zone_code || "City area"}
+                          {!a.has_reliable_coords
+                            ? " · location approximate"
+                            : ""}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </Panel>
 
           <div className="rounded-2xl border border-border bg-card">
@@ -455,11 +517,19 @@ export default function MapPage() {
           ) : null}
         </aside>
 
-        <section className="min-h-[480px] min-w-0 flex-1 overflow-hidden rounded-2xl border border-border bg-card">
-          {loading ? <LoadingState label="Loading map…" /> : null}
-          {error ? <ErrorState message={error} onRetry={() => void load()} /> : null}
+        <section className="relative z-0 flex h-full min-h-[50vh] min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-card isolate lg:min-h-0">
+          {loading ? (
+            <div className="flex flex-1 items-center justify-center">
+              <LoadingState label="Loading map…" />
+            </div>
+          ) : null}
+          {error ? (
+            <div className="flex flex-1 items-center justify-center p-4">
+              <ErrorState message={error} onRetry={() => void load()} />
+            </div>
+          ) : null}
           {!loading && !error && layers && !hasMapContent ? (
-            <div className="p-6">
+            <div className="flex flex-1 items-center justify-center p-6">
               <EmptyState
                 title={`Nothing to show for ${city?.name ?? cityId}`}
                 description="Load city study data, or try a Demo Alert to see the notification→map workflow."
@@ -471,7 +541,7 @@ export default function MapPage() {
                     <Button
                       type="button"
                       size="sm"
-                      onClick={() => void createDemo().then((a) => a && showOnMap(a))}
+                      onClick={() => void placeDemoOnMap()}
                     >
                       Try a Demo Alert
                     </Button>
@@ -481,7 +551,7 @@ export default function MapPage() {
             </div>
           ) : null}
           {!loading && !error && hasMapContent && layers ? (
-            <div className="h-[min(72vh,680px)] w-full">
+            <div className="relative h-full min-h-[320px] w-full flex-1">
               <RiskMapDynamic
                 layers={layers}
                 filter={zoneFilter}
@@ -500,12 +570,14 @@ export default function MapPage() {
             </div>
           ) : null}
           {layers ? (
-            <p className="border-t border-border px-3 py-2 text-[11px] text-muted-foreground">
-              Showing {city?.name ?? cityId} only. Map tiles © OpenStreetMap.
+            <p className="shrink-0 border-t border-border px-3 py-2 text-[11px] text-muted-foreground">
+              Showing {city?.name ?? cityId} only · {alertMarkers.length} alert
+              marker{alertMarkers.length === 1 ? "" : "s"} · Map tiles ©
+              OpenStreetMap.
             </p>
           ) : null}
         </section>
       </PageMain>
-    </>
+    </div>
   );
 }

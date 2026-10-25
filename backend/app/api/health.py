@@ -38,7 +38,7 @@ def metadata() -> MetadataResponse:
         else "City-agnostic (select via /api/cities)"
     )
     return MetadataResponse(
-        project="The Critical 1%: Hidden Community Vulnerability",
+        project="CRIVAL: Hidden Community Vulnerability",
         module="Crises Before Crises — Early Warning + Vulnerability Intelligence",
         study_area=study,
         spatial_srid=settings.spatial_srid,

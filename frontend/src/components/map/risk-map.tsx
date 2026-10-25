@@ -79,6 +79,31 @@ function FlyToAlert({
   return null;
 }
 
+/** Keep Leaflet tiles aligned when the flex layout resizes the container. */
+function InvalidateOnResize() {
+  const map = useMap();
+  useEffect(() => {
+    const container = map.getContainer();
+    const run = () => {
+      map.invalidateSize({ animate: false });
+    };
+    run();
+    const ro =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => run())
+        : null;
+    if (ro) ro.observe(container);
+    window.addEventListener("resize", run);
+    const t = window.setTimeout(run, 120);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", run);
+      window.clearTimeout(t);
+    };
+  }, [map]);
+  return null;
+}
+
 export function RiskMap({
   layers,
   filter,
@@ -149,14 +174,15 @@ export function RiskMap({
     <MapContainer
       center={mapCenter}
       zoom={12}
-      className="h-full w-full rounded-lg"
+      className="absolute inset-0 z-0 h-full w-full rounded-lg !z-0"
       scrollWheelZoom
-      style={{ minHeight: 420 }}
+      style={{ height: "100%", width: "100%" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      <InvalidateOnResize />
       <FitBounds features={zoneFc.features} fallbackCenter={mapCenter} />
       <FlyToAlert target={flyTarget} />
       <LayersControl position="topright">
@@ -414,14 +440,16 @@ export function RiskMap({
               <CircleMarker
                 key={`alert-${a.id}`}
                 center={[a.lat, a.lon]}
-                radius={focused ? 14 : a.is_resolved ? 7 : 11}
+                pane="markerPane"
+                radius={focused ? 16 : a.is_demo ? 13 : a.is_resolved ? 7 : 11}
                 pathOptions={{
-                  color: focused ? "#0f172a" : fill,
+                  color: focused || a.is_demo ? "#4c1d95" : fill,
                   fillColor: fill,
-                  fillOpacity: a.is_resolved ? 0.35 : 0.9,
-                  weight: focused ? 3 : 2,
+                  fillOpacity: a.is_resolved ? 0.35 : 0.95,
+                  weight: focused || a.is_demo ? 3 : 2,
+                  className:
+                    focused && !a.is_resolved ? "alert-pulse" : undefined,
                 }}
-                className={focused && !a.is_resolved ? "alert-pulse" : undefined}
               >
                 <Popup>
                   <strong>{a.title}</strong>

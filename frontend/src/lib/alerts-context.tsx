@@ -22,17 +22,30 @@ import { useToast } from "@/components/ui/toast";
 const POLL_MS = 45_000;
 const BROWSER_NOTIFIED_KEY = "critical1_browser_notified_ids";
 
+export type WeatherPollStatus = {
+  ok: boolean;
+  checkedAt: string | null;
+  message: string;
+  precipitationMm: number | null;
+  thresholdMm: number | null;
+  created: boolean;
+  error: string | null;
+};
+
 type AlertsContextValue = {
   alerts: LiveAlert[];
   unreadCount: number;
   loading: boolean;
   error: string | null;
   lastRefreshAt: string | null;
+  lastPollStatus: WeatherPollStatus | null;
+  polling: boolean;
   focusAlertId: string | null;
   panelOpen: boolean;
   setPanelOpen: (open: boolean) => void;
   refresh: () => Promise<void>;
-  pollFeeds: () => Promise<void>;
+  /** quiet=true skips toasts (background interval). */
+  pollFeeds: (opts?: { quiet?: boolean }) => Promise<WeatherPollStatus>;
   createDemo: (alertType?: string) => Promise<LiveAlert | null>;
   markRead: (id: string) => Promise<void>;
   markAllRead: () => Promise<void>;
@@ -77,6 +90,10 @@ export function AlertsProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastRefreshAt, setLastRefreshAt] = useState<string | null>(null);
+  const [lastPollStatus, setLastPollStatus] = useState<WeatherPollStatus | null>(
+    null
+  );
+  const [polling, setPolling] = useState(false);
   const [focusAlertId, setFocusAlertId] = useState<string | null>(null);
   const [panelOpen, setPanelOpen] = useState(false);
   const [browserPermission, setBrowserPermission] = useState<
@@ -111,14 +128,15 @@ export function AlertsProvider({ children }: { children: React.ReactNode }) {
 
       for (const a of newcomers) {
         const label = a.is_demo ? `[Demo] ${a.title}` : a.title;
-        toast(`${label} — ${a.description.slice(0, 90)}`, "info");
+        const blurb = (a.description || "").slice(0, 90);
+        toast(blurb ? `${label} — ${blurb}` : label, "info");
         if (
           browserPermission === "granted" &&
           !notifiedIds.current.has(a.source_event_id)
         ) {
           try {
             new Notification(label, {
-              body: a.description.slice(0, 140),
+              body: (a.description || "").slice(0, 140),
               tag: a.source_event_id,
             });
             notifiedIds.current.add(a.source_event_id);
@@ -136,24 +154,99 @@ export function AlertsProvider({ children }: { children: React.ReactNode }) {
     }
   }, [cityId, browserPermission, toast]);
 
-  const pollFeeds = useCallback(async () => {
-    try {
-      await api.pollAlerts(cityId);
-    } catch {
-      /* soft fail — refresh still shows stored alerts */
-    }
-    await refresh();
-  }, [cityId, refresh]);
+  const pollFeeds = useCallback(
+    async (opts?: { quiet?: boolean }) => {
+      const quiet = opts?.quiet ?? false;
+      setPolling(true);
+      let status: WeatherPollStatus = {
+        ok: false,
+        checkedAt: new Date().toISOString(),
+        message: "Could not check the weather forecast.",
+        precipitationMm: null,
+        thresholdMm: null,
+        created: false,
+        error: "Request failed",
+      };
+      try {
+        const res = await api.pollAlerts(cityId);
+        const first = (res.results?.[0] || {}) as Record<string, unknown>;
+        const precip =
+          typeof first.precipitation_next_6h_mm === "number"
+            ? first.precipitation_next_6h_mm
+            : null;
+        const threshold =
+          typeof first.threshold_mm === "number" ? first.threshold_mm : null;
+        const created = Boolean(first.created);
+        const ok = Boolean(first.ok);
+        const err =
+          typeof first.error === "string" ? first.error : null;
+        const message =
+          typeof first.message === "string"
+            ? first.message
+            : err
+              ? err
+              : created
+                ? "New rainfall outlook stored."
+                : ok
+                  ? "Forecast checked — no new alert created."
+                  : "Weather check finished with no details.";
+        status = {
+          ok,
+          checkedAt:
+            typeof first.checked_at === "string"
+              ? first.checked_at
+              : new Date().toISOString(),
+          message,
+          precipitationMm: precip,
+          thresholdMm: threshold,
+          created,
+          error: err,
+        };
+        setLastPollStatus(status);
+        if (!quiet) {
+          if (!ok || err) {
+            toast(err || message, "error");
+          } else if (created) {
+            toast(message, "success");
+          } else if (precip != null && threshold != null) {
+            toast(
+              `Forecast checked: ~${precip} mm next 6h (alert only if ≥ ${threshold} mm).`,
+              "info"
+            );
+          } else {
+            toast(message, "info");
+          }
+        }
+      } catch (e) {
+        status = {
+          ...status,
+          message:
+            e instanceof ApiError
+              ? e.message
+              : "Could not reach the weather forecast service.",
+          error: e instanceof Error ? e.message : "Request failed",
+        };
+        setLastPollStatus(status);
+        if (!quiet) toast(status.message, "error");
+      } finally {
+        setPolling(false);
+      }
+      await refresh();
+      return status;
+    },
+    [cityId, refresh, toast]
+  );
 
   useEffect(() => {
     knownIds.current = new Set();
+    setLastPollStatus(null);
     let cancelled = false;
     void (async () => {
       await refresh();
-      if (!cancelled) await pollFeeds();
+      if (!cancelled) await pollFeeds({ quiet: true });
     })();
     const t = window.setInterval(() => {
-      void pollFeeds();
+      void pollFeeds({ quiet: true });
     }, POLL_MS);
     return () => {
       cancelled = true;
@@ -170,8 +263,18 @@ export function AlertsProvider({ children }: { children: React.ReactNode }) {
           alert_type: alertType,
           severity: "warning",
         });
+        // Optimistic insert so the map marker appears before refresh finishes.
+        setAlerts((prev) =>
+          prev.some((a) => a.id === res.alert.id)
+            ? prev
+            : [res.alert, ...prev]
+        );
+        setFocusAlertId(res.alert.id);
         await refresh();
-        toast("Demo alert created — open the bell or Show Me on the Map.", "success");
+        toast(
+          "Demo alert created — it is on the map (purple marker).",
+          "success"
+        );
         return res.alert;
       } catch (e) {
         toast(
@@ -243,6 +346,8 @@ export function AlertsProvider({ children }: { children: React.ReactNode }) {
       loading,
       error,
       lastRefreshAt,
+      lastPollStatus,
+      polling,
       focusAlertId,
       panelOpen,
       setPanelOpen,
@@ -264,6 +369,8 @@ export function AlertsProvider({ children }: { children: React.ReactNode }) {
       loading,
       error,
       lastRefreshAt,
+      lastPollStatus,
+      polling,
       focusAlertId,
       panelOpen,
       refresh,

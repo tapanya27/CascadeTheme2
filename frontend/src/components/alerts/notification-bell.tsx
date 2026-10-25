@@ -62,7 +62,7 @@ export function NotificationBell() {
   const recent = alerts.slice(0, 12);
 
   return (
-    <div className="relative">
+    <div className="relative z-50">
       <Button
         type="button"
         variant="outline"
@@ -89,12 +89,12 @@ export function NotificationBell() {
         <>
           <button
             type="button"
-            className="fixed inset-0 z-40 cursor-default bg-slate-900/20"
+            className="fixed inset-0 z-[80] cursor-default bg-slate-900/20"
             aria-label="Close alerts panel"
             onClick={() => setPanelOpen(false)}
           />
           <div
-            className="absolute right-0 z-50 mt-2 w-[min(24rem,calc(100vw-1.5rem))] overflow-hidden rounded-2xl border border-border bg-white shadow-lg"
+            className="fixed right-3 top-16 z-[90] w-[min(24rem,calc(100vw-1.5rem))] overflow-hidden rounded-2xl border border-border bg-white shadow-xl sm:right-6 sm:top-20"
             role="dialog"
             aria-label="New alerts"
           >

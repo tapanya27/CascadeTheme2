@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import {
   BellRing,
+  ClipboardList,
   Compass,
   HelpCircle,
   Home,
@@ -43,6 +44,12 @@ const primaryNav: {
     label: "New Alerts",
     hint: "Fresh warnings & notices",
     icon: BellRing,
+  },
+  {
+    href: "/tasks",
+    label: "Verification Tasks",
+    hint: "Assigned checks & follow-ups",
+    icon: ClipboardList,
   },
   {
     href: "/zones",
@@ -135,7 +142,7 @@ export function Sidebar() {
       </div>
       <div>
         <p className="font-display text-[15px] font-semibold leading-tight tracking-wide text-foreground">
-          THE CRITICAL 1%
+          CRIVAL
         </p>
         <p className="text-[11px] text-muted-foreground">
           Let&apos;s keep communities safe
@@ -169,7 +176,7 @@ export function Sidebar() {
         </div>
       ) : null}
 
-      <aside className="hidden w-[17.5rem] shrink-0 flex-col border-r border-border bg-card/90 backdrop-blur-md lg:flex">
+      <aside className="relative z-30 hidden w-[17.5rem] shrink-0 flex-col border-r border-border bg-card/90 backdrop-blur-md lg:flex">
         <div className="border-b border-border px-4 py-5">{brand}</div>
         <div className="pt-3">
           <NavLinks />

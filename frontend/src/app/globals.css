@@ -63,7 +63,9 @@ body {
 
 .leaflet-container {
   font: inherit;
-  z-index: 0;
+  /* Contain Leaflet's high internal pane z-indexes so they cannot cover app chrome. */
+  z-index: 0 !important;
+  isolation: isolate;
   background: hsl(210 30% 94%);
   border-radius: var(--radius);
 }

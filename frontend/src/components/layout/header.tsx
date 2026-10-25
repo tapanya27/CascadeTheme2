@@ -46,7 +46,7 @@ export function Header({
   return (
     <header
       className={cn(
-        "border-b border-border/80 px-4 py-5 sm:px-6 lg:px-8",
+        "relative z-40 shrink-0 border-b border-border/80 px-4 py-5 sm:px-6 lg:px-8",
         hero ? "bg-gradient-to-br from-sky-50 via-white to-teal-50/40" : "bg-white/70 backdrop-blur-md"
       )}
     >

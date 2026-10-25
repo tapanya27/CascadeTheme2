@@ -1,4 +1,4 @@
-# The Critical 1%: Hidden Community Vulnerability
+# CRIVAL: Hidden Community Vulnerability
 
 City-agnostic spatial intelligence for flood early-warning proxies, hidden community vulnerability (hazard-only vs multi-factor ranks), disaster-report NLP, cascading-failure and resilience simulations.
 

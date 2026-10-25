@@ -380,15 +380,86 @@ export const api = {
         body: JSON.stringify(body),
       }
     ),
-  cascadeSimulate: (cityId: string, scenarioType: string) =>
+  cascadeSimulate: (
+    cityId: string,
+    scenarioType: string,
+    opts?: { zone_ids?: string[]; failed_infra_ids?: string[] }
+  ) =>
     request<Record<string, unknown>>(
       withCity("/api/cascade/simulate", cityId),
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ scenario_type: scenarioType }),
+        body: JSON.stringify({
+          scenario_type: scenarioType,
+          zone_ids: opts?.zone_ids,
+          failed_infra_ids: opts?.failed_infra_ids,
+        }),
       }
     ),
+  caseBriefing: (cityId: string, zoneId: string) =>
+    request<CaseBriefing>(
+      withCity(`/api/zones/${encodeURIComponent(zoneId)}/case`, cityId)
+    ),
+  caseTasks: (cityId: string, zoneId: string) =>
+    request<CaseTasksResponse>(
+      withCity(`/api/zones/${encodeURIComponent(zoneId)}/tasks`, cityId)
+    ),
+  cityTasks: (cityId: string, includeDone = true) =>
+    request<CityTasksResponse>(
+      withCity(
+        `/api/tasks?include_done=${includeDone}`,
+        cityId
+      )
+    ),
+  createCaseTask: (
+    cityId: string,
+    zoneId: string,
+    body: {
+      title: string;
+      description?: string;
+      why_recommended?: string;
+      priority?: string;
+      source?: string;
+      source_ref?: string | null;
+      assigned_to?: string | null;
+      next_step?: string | null;
+    }
+  ) =>
+    request<ResponseTask>(
+      withCity(`/api/zones/${encodeURIComponent(zoneId)}/tasks`, cityId),
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    ),
+  updateCaseTask: (
+    cityId: string,
+    taskId: string,
+    body: {
+      status?: string;
+      assigned_to?: string | null;
+      priority?: string;
+      next_step?: string | null;
+      note?: string;
+    }
+  ) =>
+    request<ResponseTask>(
+      withCity(`/api/tasks/${encodeURIComponent(taskId)}/update`, cityId),
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    ),
+  caseExportUrl: (cityId: string, zoneId: string, format: "json" | "csv" = "csv") => {
+    const base = getBaseUrl();
+    return `${base}${withCity(
+      `/api/zones/${encodeURIComponent(zoneId)}/case/export?format=${format}`,
+      cityId
+    )}`;
+  },
   resilienceRun: (cityId: string, seed = 42) =>
     request<Record<string, unknown>>(withCity("/api/resilience/run", cityId), {
       method: "POST",
@@ -516,6 +587,155 @@ export type AlertSourcesResponse = {
   }[];
   stale_after_hours: number;
   generated_at: string;
+};
+
+export type ResponseTask = {
+  id: string;
+  city_id: string;
+  zone_id: string;
+  title: string;
+  description: string;
+  why_recommended: string;
+  priority: string;
+  status: string;
+  source: string;
+  source_ref: string | null;
+  assigned_to: string | null;
+  next_step: string | null;
+  notes: { at: string; text: string }[];
+  audit: { at: string; action: string; detail: string }[];
+  completed_at: string | null;
+  created_at: string | null;
+  updated_at: string | null;
+  disclaimer: string;
+  zone_name?: string;
+  zone_code?: string;
+};
+
+export type CityTasksResponse = {
+  city_id: string;
+  items: ResponseTask[];
+  disclaimer: string;
+};
+
+export type SuggestedTask = {
+  title: string;
+  description: string;
+  why_recommended: string;
+  priority: string;
+  source: string;
+  source_ref: string | null;
+  next_step: string;
+};
+
+export type CaseTasksResponse = {
+  zone_id: string;
+  city_id: string;
+  items: ResponseTask[];
+  suggested: SuggestedTask[];
+  disclaimer: string;
+};
+
+export type CaseBriefing = {
+  zone_id: string;
+  city_id: string;
+  zone_code: string;
+  zone_name: string;
+  description: string | null;
+  operational_status: string;
+  category: string | null;
+  overall_score: number | null;
+  score_kind: string;
+  is_synthetic: boolean | null;
+  data_source_name: string | null;
+  last_assessment_at: string | null;
+  confidence: number | null;
+  plain_language_why: string;
+  situation_types: {
+    predicted_risk: boolean;
+    observed_incident: boolean;
+    confirmed_official_alert: boolean;
+    demo_or_synthetic: boolean;
+  };
+  impact: {
+    population: {
+      value: number | null;
+      label: string;
+      is_demo_estimate: boolean;
+    };
+    nearest_healthcare_km: number | null;
+    nearest_healthcare_name: string | null;
+    nearest_healthcare_note: string;
+    hospitals_clinics_in_zone: {
+      id: string;
+      name: string;
+      kind: string;
+      is_synthetic: boolean;
+      geometry?: Record<string, unknown> | null;
+    }[];
+    roads_in_zone: {
+      id: string;
+      name: string;
+      kind: string;
+      is_synthetic: boolean;
+      geometry?: Record<string, unknown> | null;
+    }[];
+    roads_blocked_reported: string;
+    roads_blocked_note: string;
+    hazard_observations: {
+      id: string;
+      name: string;
+      kind: string;
+      is_synthetic: boolean;
+      extra?: Record<string, unknown>;
+      geometry?: Record<string, unknown> | null;
+    }[];
+    all_infrastructure: {
+      id: string;
+      name: string;
+      kind: string;
+      is_synthetic: boolean;
+      geometry?: Record<string, unknown> | null;
+    }[];
+  };
+  incidents: {
+    alerts: {
+      id: string;
+      title: string;
+      description: string;
+      severity: string;
+      authenticity: string;
+      is_demo: boolean;
+      is_acknowledged: boolean;
+      is_resolved: boolean;
+      has_reliable_coords: boolean;
+      lat: number | null;
+      lon: number | null;
+      source_name: string;
+      observed_at: string | null;
+      ingested_at: string | null;
+      kind_label: string;
+    }[];
+    community_reports: {
+      id: string;
+      category: string;
+      text_redacted: string;
+      verification_status: string;
+      needs_human_review: boolean;
+      lat?: number | null;
+      lon?: number | null;
+      created_at: string | null;
+      kind_label: string;
+    }[];
+    unresolved_alert_count: number;
+    unverified_report_count: number;
+  };
+  data_gaps: string[];
+  tasks: ResponseTask[];
+  suggested_tasks: SuggestedTask[];
+  geojson: Record<string, unknown> | null;
+  generated_at: string;
+  disclaimer: string;
 };
 
 export type MlRankingItem = {

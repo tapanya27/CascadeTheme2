@@ -1,3 +1,3 @@
-"""Critical 1% — disaster vulnerability platform backend."""
+"""CRIVAL — disaster vulnerability platform backend."""
 
 __version__ = "0.5.0"

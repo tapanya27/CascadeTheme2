@@ -10,6 +10,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
+from geoalchemy2.functions import ST_Centroid, ST_X, ST_Y
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -245,12 +246,35 @@ def resolve(db: Session, alert_id: uuid.UUID, city_id: str) -> Optional[LiveAler
 
 
 def _pick_zone_near(db: Session, city_id: str) -> Optional[Zone]:
-    return (
+    """Pick a zone for the demo so markers land on different colored areas over time."""
+    zones = (
         db.query(Zone)
         .filter(Zone.city_id == city_id)
         .order_by(Zone.code.asc())
-        .first()
+        .all()
     )
+    if not zones:
+        return None
+    return zones[uuid.uuid4().int % len(zones)]
+
+
+def _zone_centroid(db: Session, zone: Zone) -> tuple[float, float]:
+    row = (
+        db.query(
+            ST_X(ST_Centroid(Zone.boundary)),
+            ST_Y(ST_Centroid(Zone.boundary)),
+        )
+        .filter(Zone.id == zone.id)
+        .one()
+    )
+    return float(row[0]), float(row[1])
+
+
+def _demo_jitter(seed: int) -> tuple[float, float]:
+    """~50–250 m offset so colocated demos stay visually distinct on the map."""
+    lon_off = ((seed % 200) - 100) / 25_000.0
+    lat_off = (((seed // 200) % 200) - 100) / 25_000.0
+    return lon_off, lat_off
 
 
 def create_demo_alert(
@@ -265,7 +289,17 @@ def create_demo_alert(
     zone = _pick_zone_near(db, city_id)
     now = _utcnow()
     event_id = f"demo-{city_id}-{now.strftime('%Y%m%d%H%M%S')}-{uuid.uuid4().hex[:8]}"
-    lon, lat = city.centroid
+    seed = uuid.uuid4().int
+    if zone is not None:
+        lon, lat = _zone_centroid(db, zone)
+        jlon, jlat = _demo_jitter(seed)
+        lon += jlon
+        lat += jlat
+    else:
+        lon, lat = city.centroid
+        jlon, jlat = _demo_jitter(seed)
+        lon += jlon
+        lat += jlat
     area = zone.name if zone else city.name
     titles = {
         "weather_rainfall": "Demo: Heavy Rainfall Outlook",

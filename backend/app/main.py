@@ -14,6 +14,7 @@ from app.api import (
     alerts,
     assessments,
     cascade,
+    case_center,
     cities,
     dashboard,
     data,
@@ -40,7 +41,7 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     settings = get_settings()
-    logger.info("Starting Critical 1%% API v%s (%s)", __version__, settings.environment)
+    logger.info("Starting CRIVAL API v%s (%s)", __version__, settings.environment)
     logger.info("Spatial SRID=%s", settings.spatial_srid)
     try:
         get_engine()
@@ -55,7 +56,7 @@ async def lifespan(_app: FastAPI):
 def create_app() -> FastAPI:
     settings = get_settings()
     app = FastAPI(
-        title="Critical 1% — Crisis Early-Warning & Vulnerability API",
+        title="CRIVAL — Crisis Early-Warning & Vulnerability API",
         description=(
             "City-agnostic spatial intelligence for flood early-warning proxies, "
             "hidden community vulnerability (hazard-only vs multi-factor ranks), "
@@ -89,6 +90,7 @@ def create_app() -> FastAPI:
     app.include_router(early_warning.router)
     app.include_router(reports.router)
     app.include_router(alerts.router)
+    app.include_router(case_center.router)
     app.include_router(cascade.router)
     app.include_router(resilience.router)
     app.include_router(ml_intelligence.router)

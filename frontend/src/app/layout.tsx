@@ -17,9 +17,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "THE CRITICAL 1% — Let's Keep Our Communities Safe!",
+  title: "CRIVAL — Let's Keep Our Communities Safe!",
   description:
-    "Find places that may need help, learn why, and see what we can do — multi-city community vulnerability app.",
+    "CRIVAL helps find places that may need help, learn why, and see what we can do — multi-city community vulnerability app.",
 };
 
 export default function RootLayout({

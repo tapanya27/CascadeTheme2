@@ -38,6 +38,8 @@ export default function AlertsPage() {
     resolve,
     showOnMap,
     lastRefreshAt,
+    lastPollStatus,
+    polling,
     browserPermission,
     requestBrowserNotifications,
   } = useAlerts();
@@ -48,39 +50,88 @@ export default function AlertsPage() {
         title="New Alerts"
         subtitle="When new information arrives, it shows up here — and on the map when we know where it is."
       />
-      <PageMain>
+      <PageMain className="gap-4 space-y-0">
         <Callout tone="info" title="Stay honest about sources">
           Demo Alerts are examples for judging and practice. Open-Meteo items are
-          weather-model outlooks, not official IMD or DHM warnings.
+          weather-model outlooks, not official IMD or DHM warnings. A weather check
+          only creates an alert when modeled rain is high enough.
         </Callout>
 
-        <div className="flex flex-wrap gap-2">
-          <Button type="button" onClick={() => void createDemo()}>
-            Try a Demo Alert
-          </Button>
-          <Button type="button" variant="outline" onClick={() => void pollFeeds()}>
-            Check weather forecast
-          </Button>
-          <Button type="button" variant="secondary" onClick={() => void markAllRead()}>
-            Mark all read ({unreadCount})
-          </Button>
-          <Button type="button" variant="ghost" onClick={() => void refresh()}>
-            Refresh list
-          </Button>
-          {browserPermission === "default" ? (
+        <Panel className="relative z-10 space-y-3">
+          <div className="flex flex-wrap gap-2">
+            <Button
+              type="button"
+              onClick={() => void createDemo().then((a) => a && showOnMap(a))}
+            >
+              Try a Demo Alert
+            </Button>
             <Button
               type="button"
               variant="outline"
-              onClick={() => void requestBrowserNotifications()}
+              disabled={polling}
+              onClick={() => void pollFeeds({ quiet: false })}
             >
-              Enable browser notifications
+              {polling ? "Checking forecast…" : "Check weather forecast"}
             </Button>
-          ) : null}
-        </div>
+            <Button type="button" variant="secondary" onClick={() => void markAllRead()}>
+              Mark all read ({unreadCount})
+            </Button>
+            <Button type="button" variant="ghost" onClick={() => void refresh()}>
+              Refresh list
+            </Button>
+            {browserPermission === "default" ? (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => void requestBrowserNotifications()}
+              >
+                Enable browser notifications
+              </Button>
+            ) : null}
+          </div>
 
-        <p className="text-sm text-muted-foreground">
-          Last checked: {formatWhen(lastRefreshAt)} · Viewing {city?.name ?? "—"}
-        </p>
+          <p className="text-sm text-muted-foreground">
+            Last list refresh: {formatWhen(lastRefreshAt)} · Viewing{" "}
+            {city?.name ?? "—"}
+          </p>
+
+          {lastPollStatus ? (
+            <Callout
+              tone={
+                lastPollStatus.error
+                  ? "danger"
+                  : lastPollStatus.created
+                    ? "success"
+                    : "info"
+              }
+              title={
+                lastPollStatus.created
+                  ? "Weather alert created"
+                  : lastPollStatus.ok
+                    ? "Weather forecast checked"
+                    : "Weather check failed"
+              }
+            >
+              <p>{lastPollStatus.message}</p>
+              {lastPollStatus.precipitationMm != null &&
+              lastPollStatus.thresholdMm != null ? (
+                <p className="mt-1">
+                  Modeled rain next ~6 hours:{" "}
+                  <strong>{lastPollStatus.precipitationMm} mm</strong>
+                  {" · "}
+                  Alert threshold: <strong>{lastPollStatus.thresholdMm} mm</strong>
+                  {lastPollStatus.precipitationMm < lastPollStatus.thresholdMm
+                    ? " — below threshold, so no new forecast alert was added (this is expected)."
+                    : null}
+                </p>
+              ) : null}
+              <p className="mt-1 text-xs">
+                Checked {formatWhen(lastPollStatus.checkedAt)} · Source: Open-Meteo
+                forecast model (not an official warning).
+              </p>
+            </Callout>
+          ) : null}
+        </Panel>
 
         {loading && alerts.length === 0 ? (
           <LoadingState label="Loading alerts…" />
@@ -94,7 +145,11 @@ export default function AlertsPage() {
           />
         ) : null}
 
-        <Section title="Recent alerts" description="Read and resolve stay separate.">
+        <Section
+          title="Recent alerts"
+          description="Read and resolve stay separate."
+          className="relative z-0"
+        >
           <ul className="space-y-3">
             {alerts.map((a) => (
               <li key={a.id}>
@@ -114,8 +169,12 @@ export default function AlertsPage() {
                     <Badge variant="outline">{a.severity}</Badge>
                     <Badge variant="secondary">{a.alert_type}</Badge>
                     {!a.is_read ? <Badge>Unread</Badge> : <Badge variant="outline">Read</Badge>}
-                    {a.is_acknowledged ? <Badge variant="secondary">Acknowledged</Badge> : null}
-                    {a.is_resolved ? <Badge variant="secondary">Resolved</Badge> : null}
+                    {a.is_acknowledged ? (
+                      <Badge variant="secondary">Acknowledged</Badge>
+                    ) : null}
+                    {a.is_resolved ? (
+                      <Badge variant="secondary">Resolved</Badge>
+                    ) : null}
                   </div>
                   <h3 className="font-display text-xl font-semibold">{a.title}</h3>
                   <p className="text-sm leading-relaxed text-secondary-foreground">

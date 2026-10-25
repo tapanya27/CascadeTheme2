@@ -8,6 +8,7 @@ from app.models.dependency import DependencyEdge
 from app.models.hazard import HazardObservation
 from app.models.infrastructure import Infrastructure
 from app.models.intervention import InterventionScenario
+from app.models.response_task import ResponseTask
 from app.models.zone import Zone
 
 __all__ = [
@@ -18,6 +19,7 @@ __all__ = [
     "Infrastructure",
     "InterventionScenario",
     "LiveAlert",
+    "ResponseTask",
     "VulnerabilityAssessment",
     "Zone",
 ]
