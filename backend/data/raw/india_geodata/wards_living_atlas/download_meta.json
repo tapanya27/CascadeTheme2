@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "key": "wards_living_atlas",
+  "cached": false,
+  "path": "data\\raw\\india_geodata\\wards_living_atlas\\LivingAtlas_Wards.parquet",
+  "bytes": 10318175,
+  "bytes_mb": 10.318,
+  "source_url": "https://github.com/yashveeeeeeer/india-geodata/releases/download/urban%2Fboundaries/LivingAtlas_Wards.parquet",
+  "tag": "urban/boundaries",
+  "description": "Municipal ward polygons (Living Atlas / SBM-related collection)",
+  "license_note": "See India Geodata urban/boundaries release",
+  "retrieved_at": "2026-10-25T16:13:01.135305+00:00",
+  "http_status": 200
+}

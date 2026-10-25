@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "provider_id": "flood_events_precip_proxy",
+  "message": "Built precipitation-proxy flood-onset labels. These are NOT official flood extents or verified events.",
+  "raw_path": null,
+  "processed_path": "C:\\Users\\tanay\\CascadeTheme2\\backend\\data\\processed\\flood_events_precip_proxy\\nagpur_h24_labels.parquet",
+  "provenance": {
+    "provider_id": "flood_events_precip_proxy",
+    "source_name": "Precipitation-threshold flood-onset proxy",
+    "license_note": "Derived product \u2014 not an official flood catalog",
+    "retrieval_url": null,
+    "retrieved_at": "2026-10-25T12:06:12.317092+00:00",
+    "version_tag": null,
+    "geographic_coverage": {
+      "city_id": "nagpur"
+    },
+    "temporal_coverage": {
+      "start": "2023-06-01 00:00:00+00:00",
+      "end": "2023-08-31 23:00:00+00:00"
+    },
+    "quality_limitations": [
+      "Proxy from rainfall thresholds only \u2014 high false-alarm risk.",
+      "Not calibrated to local flood authority criteria.",
+      "Global Flood Database (MODIS) requires Google Earth Engine authentication. Authenticate EE separately, or place a GeoJSON/CSV of flood events under backend/data/raw/flood_events/ and call the local loader. Until then, precipitation-proxy labels are available and marked as estimated."
+    ],
+    "observation_kind": "estimated",
+    "extra": {
+      "rain_24h_threshold_mm": 40.0,
+      "rain_72h_threshold_mm": 80.0,
+      "horizon_hours": 24
+    }
+  },
+  "stats": {
+    "rows": 2208,
+    "usable_labels": 2137,
+    "positive_labels": 144
+  },
+  "blocker": null
+}

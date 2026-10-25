@@ -1,0 +1,22 @@
+{
+  "status": "trained",
+  "model_kind": "isolation_forest",
+  "claim": "Ranks unusual feature combinations among zones. Not a verified crisis or disaster probability.",
+  "n_samples": 320,
+  "feature_columns": [
+    "rainfall_24h_mm",
+    "rainfall_72h_mm",
+    "distance_from_city_centroid_km",
+    "source_coverage_score"
+  ],
+  "contamination": 0.08,
+  "null_rates_at_train": {
+    "rainfall_24h_mm": 0.0,
+    "rainfall_72h_mm": 0.0,
+    "distance_from_city_centroid_km": 0.0,
+    "source_coverage_score": 0.0
+  },
+  "imputation": "SimpleImputer(median) inside pipeline \u2014 for detector only",
+  "anomaly_rate": 0.08125,
+  "created_at": "2026-10-25T14:55:51.150594+00:00"
+}

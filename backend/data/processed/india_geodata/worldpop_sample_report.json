@@ -1,0 +1,20 @@
+{
+  "source": "data\\raw\\india_geodata\\worldpop_ind_1km\\ind_pd_2020_1km.tif",
+  "exists": true,
+  "created_at": "2026-10-25T16:26:47.657646+00:00",
+  "resolution": "approx_1km",
+  "crs": "EPSG:4326",
+  "units": "people_per_km2",
+  "raster_crs": "GEOGCS[\"WGS 84\",DATUM[\"World Geodetic System 1984\",SPHEROID[\"WGS 84\",6378137,298.257223563]],PRIMEM[\"Greenwich\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST]]",
+  "raster_bounds": [
+    68.18208306817596,
+    6.7495834993281605,
+    97.41541628457595,
+    35.50791671762816
+  ],
+  "raster_width": 3508,
+  "raster_height": 3451,
+  "path": "data\\processed\\india_geodata\\worldpop_zone_samples.parquet",
+  "n_rows": 200,
+  "non_null": 200
+}

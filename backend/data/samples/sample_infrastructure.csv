@@ -1,0 +1,3 @@
+name,infrastructure_type,lon,lat,external_id
+Sample CSV Hospital,hospital,79.09,21.145,sample-csv-hospital-1
+Sample CSV Clinic,clinic,79.11,21.15,sample-csv-clinic-1

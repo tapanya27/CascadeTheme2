@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "key": "worldpop_ind_1km",
+  "cached": false,
+  "path": "data\\raw\\india_geodata\\worldpop_ind_1km\\ind_pd_2020_1km.tif",
+  "bytes": 18081300,
+  "bytes_mb": 18.081,
+  "source_url": "https://data.worldpop.org/GIS/Population_Density/Global_2000_2020_1km/2020/IND/ind_pd_2020_1km.tif",
+  "tag": "external/worldpop",
+  "description": "WorldPop India population density 2020 1km (unconstrained)",
+  "license_note": "CC BY 4.0 WorldPop / WP00674",
+  "retrieved_at": "2026-10-25T16:21:30.758607+00:00",
+  "http_status": 200
+}

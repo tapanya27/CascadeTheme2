@@ -1,0 +1,61 @@
+{
+  "created_at": "2026-10-25T16:28:44.368507+00:00",
+  "kathmandu": "Kathmandu is in Nepal. India Geodata (and India Flood Inventory / Flood Atlas / IMD / NIC / SOI) do not cover it. Keep Kathmandu on Open-Meteo + OSM / demo paths only.",
+  "flood_atlas_used_as_labels": false,
+  "spatial_filter": "inventory polygon intersects city study bbox (EPSG:4326)",
+  "label_definition": "Positive: calendar day = event StartDate (parsed) for a polygon that intersects the city bbox. Negative: other days in the city monsoon window for years with \u22651 usable intersecting event. Other days unlabelled (not confirmed non-floods).",
+  "cities": {
+    "nagpur": {
+      "events_intersecting_bbox": 3,
+      "usable_temporal_events": 3,
+      "event_years": [
+        2014,
+        2015
+      ],
+      "daily_labelled_rows": 244,
+      "positives": 3,
+      "negatives": 241
+    },
+    "mumbai": {
+      "events_intersecting_bbox": 11,
+      "usable_temporal_events": 11,
+      "event_years": [
+        2014,
+        2015,
+        2016
+      ],
+      "daily_labelled_rows": 366,
+      "positives": 9,
+      "negatives": 357
+    },
+    "chennai": {
+      "events_intersecting_bbox": 10,
+      "usable_temporal_events": 10,
+      "event_years": [
+        2015
+      ],
+      "daily_labelled_rows": 214,
+      "positives": 5,
+      "negatives": 209
+    },
+    "guwahati": {
+      "events_intersecting_bbox": 24,
+      "usable_temporal_events": 24,
+      "event_years": [
+        2014,
+        2015,
+        2016
+      ],
+      "daily_labelled_rows": 366,
+      "positives": 12,
+      "negatives": 354
+    }
+  },
+  "totals": {
+    "usable_temporal_events": 48,
+    "daily_rows": 1190,
+    "positives": 29,
+    "negatives": 1161,
+    "positive_prevalence": 0.024369747899159664
+  }
+}

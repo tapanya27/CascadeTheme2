@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "key": "slums_mumbai",
+  "cached": false,
+  "path": "data\\raw\\india_geodata\\slums_mumbai\\UMD_Mumbai_Slum_Boundaries_2016.parquet",
+  "bytes": 1035567,
+  "bytes_mb": 1.036,
+  "source_url": "https://github.com/yashveeeeeeer/india-geodata/releases/download/urban%2Fboundaries/UMD_Mumbai_Slum_Boundaries_2016.parquet",
+  "tag": "urban/boundaries",
+  "description": "Mumbai slum boundaries 2016 (UMD)",
+  "license_note": "See India Geodata urban/boundaries",
+  "retrieved_at": "2026-10-25T16:13:04.611746+00:00",
+  "http_status": 200
+}

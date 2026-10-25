@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "chennai_healthcare",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "VILANGADUPAKKAM", "type": "PHC", "place": "Ariyalur, PUZHAL", "district": "Trivallur", "state": "TAMILNADU", "source": "nic", "layer": "primary_health_centre", "village_id": "229450", "source_id": 16259 }, "geometry": { "type": "Point", "coordinates": [ 80.222214999923523, 13.191183000011083 ] } },
+{ "type": "Feature", "properties": { "name": "Vilangadupakkam", "type": "SCE", "place": "Ariyalur, PUZHAL", "district": "Trivallur", "state": "TAMILNADU", "source": "nic", "layer": "sub_center", "village_id": "229450", "source_id": 116644 }, "geometry": { "type": "Point", "coordinates": [ 80.222296999939303, 13.190935999733666 ] } },
+{ "type": "Feature", "properties": { "name": "Theeyambakkam", "type": "SCE", "place": "Ariyalur, PUZHAL", "district": "Trivallur", "state": "TAMILNADU", "source": "nic", "layer": "sub_center", "village_id": "229450", "source_id": 116654 }, "geometry": { "type": "Point", "coordinates": [ 80.234172000359976, 13.197024000034688 ] } },
+{ "type": "Feature", "properties": { "name": "Naravarikuppam I", "type": "SCE", "place": "Pammadukulam, VILLIVAKKAM", "district": "Trivallur", "state": "TAMILNADU", "source": "nic", "layer": "sub_center", "village_id": "229645", "source_id": 54117 }, "geometry": { "type": "Point", "coordinates": [ 80.161182000656424, 13.193467999846854 ] } }
+]
+}

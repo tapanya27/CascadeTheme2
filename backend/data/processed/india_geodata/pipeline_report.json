@@ -1,0 +1,286 @@
+{
+  "report_doc": "docs/INDIA_GEODATA_INTEGRATION_REPORT.md",
+  "download_summary": {
+    "retrieved_at": "2026-10-25T16:23:06.446473+00:00",
+    "ok_count": 2,
+    "fail_count": 0,
+    "total_bytes": 67583337,
+    "results": {
+      "worldpop_ind_1km": {
+        "ok": true,
+        "key": "worldpop_ind_1km",
+        "cached": false,
+        "path": "data\\raw\\india_geodata\\worldpop_ind_1km\\ind_pd_2020_1km.tif",
+        "bytes": 18081300,
+        "bytes_mb": 18.081,
+        "source_url": "https://data.worldpop.org/GIS/Population_Density/Global_2000_2020_1km/2020/IND/ind_pd_2020_1km.tif",
+        "tag": "external/worldpop",
+        "description": "WorldPop India population density 2020 1km (unconstrained)",
+        "license_note": "CC BY 4.0 WorldPop / WP00674",
+        "retrieved_at": "2026-10-25T16:21:30.758607+00:00",
+        "http_status": 200
+      },
+      "healthcare_facilities": {
+        "ok": true,
+        "key": "healthcare_facilities",
+        "cached": false,
+        "path": "data\\raw\\india_geodata\\healthcare_facilities\\INDIA_HEALTH_FACILITIES_NIC.geojson",
+        "bytes": 49502037,
+        "bytes_mb": 49.502,
+        "source_url": "https://github.com/yashveeeeeeer/india-geodata/releases/download/healthcare%2Ffacilities/INDIA_HEALTH_FACILITIES_NIC.geojson",
+        "tag": "healthcare/facilities",
+        "description": "NIC India health facilities points (PHC/CHC/hospitals)",
+        "license_note": "See India Geodata healthcare/facilities release",
+        "retrieved_at": "2026-10-25T16:23:06.445368+00:00",
+        "http_status": 200
+      }
+    },
+    "total_bytes_mb": 67.583
+  },
+  "labels_geojson": {
+    "created_at": "2026-10-25T16:28:44.368507+00:00",
+    "kathmandu": "Kathmandu is in Nepal. India Geodata (and India Flood Inventory / Flood Atlas / IMD / NIC / SOI) do not cover it. Keep Kathmandu on Open-Meteo + OSM / demo paths only.",
+    "flood_atlas_used_as_labels": false,
+    "spatial_filter": "inventory polygon intersects city study bbox (EPSG:4326)",
+    "label_definition": "Positive: calendar day = event StartDate (parsed) for a polygon that intersects the city bbox. Negative: other days in the city monsoon window for years with \u22651 usable intersecting event. Other days unlabelled (not confirmed non-floods).",
+    "cities": {
+      "nagpur": {
+        "events_intersecting_bbox": 3,
+        "usable_temporal_events": 3,
+        "event_years": [
+          2014,
+          2015
+        ],
+        "daily_labelled_rows": 244,
+        "positives": 3,
+        "negatives": 241
+      },
+      "mumbai": {
+        "events_intersecting_bbox": 11,
+        "usable_temporal_events": 11,
+        "event_years": [
+          2014,
+          2015,
+          2016
+        ],
+        "daily_labelled_rows": 366,
+        "positives": 9,
+        "negatives": 357
+      },
+      "chennai": {
+        "events_intersecting_bbox": 10,
+        "usable_temporal_events": 10,
+        "event_years": [
+          2015
+        ],
+        "daily_labelled_rows": 214,
+        "positives": 5,
+        "negatives": 209
+      },
+      "guwahati": {
+        "events_intersecting_bbox": 24,
+        "usable_temporal_events": 24,
+        "event_years": [
+          2014,
+          2015,
+          2016
+        ],
+        "daily_labelled_rows": 366,
+        "positives": 12,
+        "negatives": 354
+      }
+    },
+    "totals": {
+      "usable_temporal_events": 48,
+      "daily_rows": 1190,
+      "positives": 29,
+      "negatives": 1161,
+      "positive_prevalence": 0.024369747899159664
+    }
+  },
+  "train": {
+    "created_at": "2026-10-25T16:28:49.507685+00:00",
+    "build": {
+      "labels_path": "data\\processed\\india_geodata\\labels_zenodo_csv\\all_cities_daily.parquet",
+      "rain": {
+        "nagpur": {
+          "ok": true,
+          "rows": 501,
+          "start": "2014-05-18",
+          "end": "2015-09-30"
+        },
+        "mumbai": {
+          "ok": true,
+          "rows": 867,
+          "start": "2014-05-18",
+          "end": "2016-09-30"
+        },
+        "chennai": {
+          "ok": true,
+          "rows": 228,
+          "start": "2015-05-18",
+          "end": "2015-12-31"
+        },
+        "guwahati": {
+          "ok": true,
+          "rows": 867,
+          "start": "2014-05-18",
+          "end": "2016-09-30"
+        }
+      },
+      "model_table": "data\\processed\\india_geodata\\model_table_inventory_ew.parquet",
+      "n_rows": 1190,
+      "positive_prevalence": 0.024369747899159664
+    },
+    "feature_columns": [
+      "rain_1d",
+      "rain_3d",
+      "rain_7d",
+      "rain_14d",
+      "doy",
+      "month",
+      "inventory_events_in_city_hist"
+    ],
+    "rainfall_source": "open_meteo_archive (IMD portal not ingested)",
+    "label_source": "zenodo_ifi_impacts_v3_csv",
+    "flood_atlas_used_as_labels": false,
+    "n_rows": 1190,
+    "n_positives": 29,
+    "positive_prevalence": 0.024369747899159664,
+    "split": {
+      "kind": "chronological",
+      "n_train": 714,
+      "n_val": 238,
+      "n_test": 238,
+      "train_pos": 15,
+      "val_pos": 5,
+      "test_pos": 9,
+      "train_end": "2015-08-26 00:00:00",
+      "test_start": "2016-06-04 00:00:00"
+    },
+    "baseline_logistic": {
+      "pr_auc_test": 0.04936361840621217,
+      "val_tuned_threshold": 0.6,
+      "test_at_val_threshold": {
+        "threshold": 0.6,
+        "precision_pos": 0.043243243243243246,
+        "recall_pos": 0.8888888888888888,
+        "f1_pos": 0.08247422680412371,
+        "confusion_matrix_tn_fp_fn_tp": [
+          [
+            52,
+            177
+          ],
+          [
+            1,
+            8
+          ]
+        ],
+        "alert_count": 185,
+        "n": 238
+      },
+      "test_at_0.5": {
+        "threshold": 0.5,
+        "precision_pos": 0.046632124352331605,
+        "recall_pos": 1.0,
+        "f1_pos": 0.0891089108910891,
+        "confusion_matrix_tn_fp_fn_tp": [
+          [
+            45,
+            184
+          ],
+          [
+            0,
+            9
+          ]
+        ],
+        "alert_count": 193,
+        "n": 238
+      }
+    },
+    "catboost": {
+      "pr_auc_test": 0.04552338830439492,
+      "val_tuned_threshold": 0.39999999999999997,
+      "test_at_val_threshold": {
+        "threshold": 0.39999999999999997,
+        "precision_pos": 0.0,
+        "recall_pos": 0.0,
+        "f1_pos": 0.0,
+        "confusion_matrix_tn_fp_fn_tp": [
+          [
+            207,
+            22
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "alert_count": 22,
+        "n": 238
+      },
+      "test_at_0.5": {
+        "threshold": 0.5,
+        "precision_pos": 0.0,
+        "recall_pos": 0.0,
+        "f1_pos": 0.0,
+        "confusion_matrix_tn_fp_fn_tp": [
+          [
+            218,
+            11
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "alert_count": 11,
+        "n": 238
+      },
+      "model_path": "data\\models\\ew_inventory_catboost.cbm"
+    },
+    "xgboost_benchmark": {
+      "pr_auc_test": 0.07079285339513376,
+      "val_tuned_threshold": 0.3,
+      "test_at_val_threshold": {
+        "threshold": 0.3,
+        "precision_pos": 0.05,
+        "recall_pos": 0.2222222222222222,
+        "f1_pos": 0.08163265306122448,
+        "confusion_matrix_tn_fp_fn_tp": [
+          [
+            191,
+            38
+          ],
+          [
+            7,
+            2
+          ]
+        ],
+        "alert_count": 40,
+        "n": 238
+      },
+      "test_at_0.5": {
+        "threshold": 0.5,
+        "precision_pos": 0.09090909090909091,
+        "recall_pos": 0.1111111111111111,
+        "f1_pos": 0.1,
+        "confusion_matrix_tn_fp_fn_tp": [
+          [
+            219,
+            10
+          ],
+          [
+            8,
+            1
+          ]
+        ],
+        "alert_count": 11,
+        "n": 238
+      },
+      "model_path": "data\\models\\ew_inventory_xgboost.joblib"
+    },
+    "status": "trained_experimental",
+    "message": "Models trained on IFI inventory labels + Open-Meteo rainfall. Not an operational flood forecast. Flood Atlas unused as labels."
+  }
+}

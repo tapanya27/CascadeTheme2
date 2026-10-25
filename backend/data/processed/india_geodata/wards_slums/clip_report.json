@@ -1,0 +1,57 @@
+{
+  "cities": {
+    "nagpur": {
+      "city_id": "nagpur",
+      "bbox": [
+        78.95,
+        21.05,
+        79.2,
+        21.25
+      ],
+      "wards_count": 128,
+      "wards_path": "data\\processed\\india_geodata\\wards_slums\\nagpur_wards.geojson",
+      "slums_count": 0,
+      "slums_note": "No city-specific slum layer in downloaded set"
+    },
+    "mumbai": {
+      "city_id": "mumbai",
+      "bbox": [
+        72.77,
+        18.89,
+        72.98,
+        19.3
+      ],
+      "wards_count": 258,
+      "wards_path": "data\\processed\\india_geodata\\wards_slums\\mumbai_wards.geojson",
+      "slums_count": 2547,
+      "slums_path": "data\\processed\\india_geodata\\wards_slums\\mumbai_slums.geojson"
+    },
+    "chennai": {
+      "city_id": "chennai",
+      "bbox": [
+        80.16,
+        12.95,
+        80.34,
+        13.2
+      ],
+      "wards_count": 190,
+      "wards_path": "data\\processed\\india_geodata\\wards_slums\\chennai_wards.geojson",
+      "slums_count": 1087,
+      "slums_path": "data\\processed\\india_geodata\\wards_slums\\chennai_slums.geojson"
+    },
+    "guwahati": {
+      "city_id": "guwahati",
+      "bbox": [
+        91.58,
+        26.1,
+        91.85,
+        26.25
+      ],
+      "wards_count": 60,
+      "wards_path": "data\\processed\\india_geodata\\wards_slums\\guwahati_wards.geojson",
+      "slums_count": 0,
+      "slums_note": "No city-specific slum layer in downloaded set"
+    }
+  },
+  "created_at": "2026-10-25T16:14:32.728743+00:00"
+}

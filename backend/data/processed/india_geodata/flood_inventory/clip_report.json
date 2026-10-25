@@ -1,0 +1,46 @@
+{
+  "source": "data\\raw\\india_geodata\\flood_inventory\\INDIA_FLOOD_INVENTORY_V3.geojson",
+  "exists": true,
+  "cities": {
+    "nagpur": {
+      "events_intersecting_bbox": 3,
+      "geojson": "data\\processed\\india_geodata\\flood_inventory\\nagpur_events.geojson",
+      "csv": "data\\processed\\india_geodata\\flood_inventory\\nagpur_events.csv"
+    },
+    "mumbai": {
+      "events_intersecting_bbox": 11,
+      "geojson": "data\\processed\\india_geodata\\flood_inventory\\mumbai_events.geojson",
+      "csv": "data\\processed\\india_geodata\\flood_inventory\\mumbai_events.csv"
+    },
+    "chennai": {
+      "events_intersecting_bbox": 10,
+      "geojson": "data\\processed\\india_geodata\\flood_inventory\\chennai_events.geojson",
+      "csv": "data\\processed\\india_geodata\\flood_inventory\\chennai_events.csv"
+    },
+    "guwahati": {
+      "events_intersecting_bbox": 24,
+      "geojson": "data\\processed\\india_geodata\\flood_inventory\\guwahati_events.geojson",
+      "csv": "data\\processed\\india_geodata\\flood_inventory\\guwahati_events.csv"
+    }
+  },
+  "kathmandu": "Kathmandu is in Nepal. India Geodata (and India Flood Inventory / Flood Atlas / IMD / NIC / SOI) do not cover it. Keep Kathmandu on Open-Meteo + OSM / demo paths only.",
+  "created_at": "2026-10-25T16:27:44.045520+00:00",
+  "national_features": 1006,
+  "columns": [
+    "FID",
+    "StartDate",
+    "EndDate",
+    "State",
+    "Districts",
+    "MainCause",
+    "EventSour",
+    "Number",
+    "cause_index",
+    "geometry"
+  ],
+  "date_columns_detected": [
+    "StartDate",
+    "EndDate"
+  ],
+  "total_events_retained_all_cities": 48
+}

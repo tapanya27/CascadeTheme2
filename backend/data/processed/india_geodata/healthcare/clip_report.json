@@ -1,0 +1,25 @@
+{
+  "source": "data\\raw\\india_geodata\\healthcare_facilities\\INDIA_HEALTH_FACILITIES_NIC.geojson",
+  "exists": true,
+  "cities": {
+    "nagpur": {
+      "facilities": 85,
+      "path": "data\\processed\\india_geodata\\healthcare\\nagpur_healthcare.geojson"
+    },
+    "mumbai": {
+      "facilities": 1,
+      "path": "data\\processed\\india_geodata\\healthcare\\mumbai_healthcare.geojson"
+    },
+    "chennai": {
+      "facilities": 4,
+      "path": "data\\processed\\india_geodata\\healthcare\\chennai_healthcare.geojson"
+    },
+    "guwahati": {
+      "facilities": 21,
+      "path": "data\\processed\\india_geodata\\healthcare\\guwahati_healthcare.geojson"
+    }
+  },
+  "created_at": "2026-10-25T16:26:40.001533+00:00",
+  "crs": "EPSG:4326",
+  "national_features": 147957
+}

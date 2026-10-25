@@ -1,0 +1,17 @@
+{
+  "kind": "model_derived_flood_atlas",
+  "files": {
+    "risk": {
+      "path": "data\\raw\\india_geodata\\flood_atlas_district_risk\\District_Wise_flood_risk_data.json",
+      "bytes": 92150,
+      "n_records": 742,
+      "sample_type": "list"
+    },
+    "max_frac": {
+      "path": "data\\raw\\india_geodata\\flood_atlas_district_frac\\District_Wise_max_flood_area_frac.json",
+      "bytes": 50305,
+      "n_records": 711,
+      "sample_type": "list"
+    }
+  }
+}

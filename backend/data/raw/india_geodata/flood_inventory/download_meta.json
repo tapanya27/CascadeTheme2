@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "key": "flood_inventory",
+  "cached": false,
+  "path": "data\\raw\\india_geodata\\flood_inventory\\INDIA_FLOOD_INVENTORY_V3.geojson",
+  "bytes": 29992356,
+  "bytes_mb": 29.992,
+  "source_url": "https://github.com/yashveeeeeeer/india-geodata/releases/download/environment%2Fflood-inventory/INDIA_FLOOD_INVENTORY_V3.geojson",
+  "tag": "environment/flood-inventory",
+  "description": "India Flood Inventory v3 \u2014 1006 historical flood polygons (1960s\u20132020)",
+  "license_note": "CC-BY-4.0 (HydroSense Lab / Saharia et al. 2021)",
+  "retrieved_at": "2026-10-25T16:12:05.631081+00:00",
+  "http_status": 200
+}

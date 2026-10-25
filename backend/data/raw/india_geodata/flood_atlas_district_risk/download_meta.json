@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "key": "flood_atlas_district_risk",
+  "cached": false,
+  "path": "data\\raw\\india_geodata\\flood_atlas_district_risk\\District_Wise_flood_risk_data.json",
+  "bytes": 92150,
+  "bytes_mb": 0.092,
+  "source_url": "https://raw.githubusercontent.com/yashveeeeeeer/india-geodata/main/data/environment/flood-atlas/District_Wise_flood_risk_data.json",
+  "tag": "environment/flood-atlas",
+  "description": "India Flood Atlas \u2014 district flood risk (model-derived H08-CaMa-Flood)",
+  "license_note": "See India Geodata / Flood Atlas terms \u2014 MODEL-DERIVED, not inventory events",
+  "retrieved_at": "2026-10-25T16:12:28.843481+00:00",
+  "http_status": 200
+}

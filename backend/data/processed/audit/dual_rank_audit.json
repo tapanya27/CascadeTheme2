@@ -1,0 +1,54 @@
+{
+  "n_zones": 4,
+  "zones": [
+    {
+      "zone_id": "f9d74128-1fce-4daa-9177-ddbb65f2d977",
+      "zone_code": "NAG-SYN-01",
+      "hazard_score": 35.0,
+      "multifactor_score": 23.41,
+      "hazard_only_rank": 2,
+      "multifactor_rank": 4,
+      "rank_uplift": -2,
+      "rank_uplift_interpretation": "Moved down in priority vs hazard-only",
+      "note": "Rank uplift is a prioritisation difference, not a causal effect. Confidence remains a data-coverage heuristic, not calibrated uncertainty."
+    },
+    {
+      "zone_id": "6219313f-c7bb-46ae-bb33-2bc5657ac99a",
+      "zone_code": "NAG-SYN-02",
+      "hazard_score": 75.0,
+      "multifactor_score": 40.79,
+      "hazard_only_rank": 1,
+      "multifactor_rank": 2,
+      "rank_uplift": -1,
+      "rank_uplift_interpretation": "Moved down in priority vs hazard-only",
+      "note": "Rank uplift is a prioritisation difference, not a causal effect. Confidence remains a data-coverage heuristic, not calibrated uncertainty."
+    },
+    {
+      "zone_id": "89e258de-e3e2-40af-9c4d-5401c1eb585a",
+      "zone_code": "NAG-SYN-03",
+      "hazard_score": null,
+      "multifactor_score": 48.36,
+      "hazard_only_rank": null,
+      "multifactor_rank": 1,
+      "rank_uplift": null,
+      "rank_uplift_interpretation": null,
+      "note": "Rank uplift is a prioritisation difference, not a causal effect. Confidence remains a data-coverage heuristic, not calibrated uncertainty."
+    },
+    {
+      "zone_id": "60239392-4c49-4b94-8707-6df0632dfc1c",
+      "zone_code": "NAG-SYN-04",
+      "hazard_score": 10.0,
+      "multifactor_score": 28.16,
+      "hazard_only_rank": 3,
+      "multifactor_rank": 3,
+      "rank_uplift": 0,
+      "rank_uplift_interpretation": "Same rank as hazard-only",
+      "note": "Rank uplift is a prioritisation difference, not a causal effect. Confidence remains a data-coverage heuristic, not calibrated uncertainty."
+    }
+  ],
+  "top1_overlap": 0.0,
+  "top3_jaccard": 0.5,
+  "n_positive_uplift": 0,
+  "ground_truth_available": false,
+  "interpretation": "Rank uplift identifies zones that multi-factor ranking prioritizes higher than hazard-only. No ground-truth safety outcomes exist in this DB \u2014 do NOT claim improved real-world safety."
+}

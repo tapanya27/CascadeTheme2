@@ -1,0 +1,4 @@
+FID,StartDate,EndDate,State,Districts,MainCause,EventSour,Number,cause_index,city_id,study_bbox,observation_kind,label_family,not_flood_atlas
+UEI-IMD-FL-2014-0052,23-07-2014,28-07-2014,MAHARASHTRA,Nagpur,Heavy rains,IMD,258,2,nagpur,"(78.95, 21.05, 79.2, 21.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0067,23-06-2015,23-06-2015,MAHARASHTRA,Nagpur,Heavy rains,IMD,60,2,nagpur,"(78.95, 21.05, 79.2, 21.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0071,06-08-2015,14-08-2015,MAHARASHTRA,Nagpur,Heavy rains,IMD,64,2,nagpur,"(78.95, 21.05, 79.2, 21.25)",observed_inventory,india_flood_inventory,True

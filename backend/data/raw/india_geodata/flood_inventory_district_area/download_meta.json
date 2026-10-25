@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "key": "flood_inventory_district_area",
+  "cached": false,
+  "path": "data\\raw\\india_geodata\\flood_inventory_district_area\\District_FloodedArea.csv",
+  "bytes": 32567,
+  "bytes_mb": 0.033,
+  "source_url": "https://zenodo.org/api/records/11275211/files/District_FloodedArea.csv/content",
+  "tag": "zenodo/11275211",
+  "description": "IFI district flooded-area statistics (impacts table \u2014 NOT Flood Atlas)",
+  "license_note": "CC-BY-4.0 Zenodo IFI-Impacts",
+  "retrieved_at": "2026-10-25T16:12:48.600873+00:00",
+  "http_status": 200
+}

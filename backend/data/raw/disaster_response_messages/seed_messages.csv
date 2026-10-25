@@ -1,0 +1,38 @@
+id,message,label,related
+0,Flood water entered our street near the clinic,flooding,1
+1,Need medical help for elderly after storm,medical_needs,1
+2,Main road blocked by landslide debris,blocked_roads,1
+3,No electricity in the ward since morning,electricity,1
+4,Drinking water contaminated after overflow,water,1
+5,Looking for temporary shelter for family,shelter,1
+6,Bridge damaged and unsafe to cross,infrastructure_damage,1
+7,Beautiful sunny picnic at the park today,,0
+8,Recipe for chocolate cake with frosting,,0
+9,Hospital ambulance cannot reach flooded lane,medical_needs,1
+10,Power lines down after heavy rain,electricity,1
+11,River overflowing near market area,flooding,1
+12,Please share football match scores,,0
+13,Road closed due to waterlogging,blocked_roads,1
+14,Shelter camp needs blankets,shelter,1
+15,Water supply restored in sector 4,water,1
+16,Clinic short of ORS and bandages,medical_needs,1
+17,School building wall cracked,infrastructure_damage,1
+18,Concert tickets available online,,0
+19,Flash flood warning for low-lying areas,flooding,1
+20,Backup generator failed at hospital,electricity,1
+21,Mudslide blocking highway exit,blocked_roads,1
+22,Boil-water advisory issued,water,1
+23,Community hall opened as shelter,shelter,1
+24,Heavy rain flooding basement apartments,flooding,1
+25,Ambulance stuck due to submerged road,medical_needs,1
+26,Traffic diverted after overpass damage,blocked_roads,1
+27,Transformer exploded leaving dark streets,electricity,1
+28,Tankers delivering drinking water,water,1
+29,School gym converted into overnight shelter,shelter,1
+30,Warehouse roof collapsed in storm,infrastructure_damage,1
+31,Weekend hiking tips for beginners,,0
+32,Stock market weekly wrap-up podcast,,0
+33,New smartphone camera review,,0
+34,Local bakery opening hours update,,0
+35,Gardening advice for tomato plants,,0
+36,Chess tournament results posted,,0

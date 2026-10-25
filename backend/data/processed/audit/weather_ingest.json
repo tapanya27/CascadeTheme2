@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "provider_id": "open_meteo_archive",
+  "message": "Downloaded and processed Open-Meteo precipitation.",
+  "raw_path": "C:\\Users\\tanay\\CascadeTheme2\\backend\\data\\raw\\open_meteo_archive\\nagpur_79.088_21.146_2023-06-01_2023-08-31.json",
+  "processed_path": "C:\\Users\\tanay\\CascadeTheme2\\backend\\data\\processed\\open_meteo_archive\\nagpur_79.088_21.146_2023-06-01_2023-08-31_hourly.parquet",
+  "provenance": {
+    "provider_id": "open_meteo_archive",
+    "source_name": "Open-Meteo Historical Weather API",
+    "license_note": "CC BY 4.0 \u2014 attribution required (https://open-meteo.com/)",
+    "retrieval_url": "https://archive-api.open-meteo.com/v1/archive",
+    "retrieved_at": "2026-10-25T12:06:12.186940+00:00",
+    "version_tag": "open-meteo-archive-v1",
+    "geographic_coverage": {
+      "lon": 79.0882,
+      "lat": 21.1458,
+      "city_id": "nagpur"
+    },
+    "temporal_coverage": {
+      "start": "2023-06-01",
+      "end": "2023-08-31"
+    },
+    "quality_limitations": [
+      "Reanalysis-based historical product \u2014 not a live forecast.",
+      "Point sample at city centroid; not a spatial precipitation field.",
+      "Missing hourly values are preserved as null (never zero-filled)."
+    ],
+    "observation_kind": "estimated",
+    "extra": {
+      "cached": false
+    }
+  },
+  "stats": {
+    "rows": 2208,
+    "precip_missing": 0,
+    "features_path": "C:\\Users\\tanay\\CascadeTheme2\\backend\\data\\processed\\open_meteo_archive\\nagpur_79.088_21.146_2023-06-01_2023-08-31_features.parquet",
+    "units": {
+      "precipitation": "mm (preceding hour sum)"
+    }
+  },
+  "blocker": null
+}

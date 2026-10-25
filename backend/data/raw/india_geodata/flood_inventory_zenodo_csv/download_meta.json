@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "key": "flood_inventory_zenodo_csv",
+  "cached": false,
+  "path": "data\\raw\\india_geodata\\flood_inventory_zenodo_csv\\India_Flood_Inventory_v3.csv",
+  "bytes": 1801579,
+  "bytes_mb": 1.802,
+  "source_url": "https://zenodo.org/api/records/11275211/files/India_Flood_Inventory_v3.csv/content",
+  "tag": "zenodo/11275211",
+  "description": "IFI-Impacts v3 event table (dates, districts, attributes) \u2014 Zenodo 10.5281/zenodo.11275211",
+  "license_note": "CC-BY-4.0 (Saharia et al. / HydroSense Lab)",
+  "retrieved_at": "2026-10-25T16:12:47.737060+00:00",
+  "http_status": 200
+}

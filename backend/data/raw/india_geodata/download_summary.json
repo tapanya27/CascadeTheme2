@@ -1,0 +1,37 @@
+{
+  "retrieved_at": "2026-10-25T16:23:06.446473+00:00",
+  "ok_count": 2,
+  "fail_count": 0,
+  "total_bytes": 67583337,
+  "results": {
+    "worldpop_ind_1km": {
+      "ok": true,
+      "key": "worldpop_ind_1km",
+      "cached": false,
+      "path": "data\\raw\\india_geodata\\worldpop_ind_1km\\ind_pd_2020_1km.tif",
+      "bytes": 18081300,
+      "bytes_mb": 18.081,
+      "source_url": "https://data.worldpop.org/GIS/Population_Density/Global_2000_2020_1km/2020/IND/ind_pd_2020_1km.tif",
+      "tag": "external/worldpop",
+      "description": "WorldPop India population density 2020 1km (unconstrained)",
+      "license_note": "CC BY 4.0 WorldPop / WP00674",
+      "retrieved_at": "2026-10-25T16:21:30.758607+00:00",
+      "http_status": 200
+    },
+    "healthcare_facilities": {
+      "ok": true,
+      "key": "healthcare_facilities",
+      "cached": false,
+      "path": "data\\raw\\india_geodata\\healthcare_facilities\\INDIA_HEALTH_FACILITIES_NIC.geojson",
+      "bytes": 49502037,
+      "bytes_mb": 49.502,
+      "source_url": "https://github.com/yashveeeeeeer/india-geodata/releases/download/healthcare%2Ffacilities/INDIA_HEALTH_FACILITIES_NIC.geojson",
+      "tag": "healthcare/facilities",
+      "description": "NIC India health facilities points (PHC/CHC/hospitals)",
+      "license_note": "See India Geodata healthcare/facilities release",
+      "retrieved_at": "2026-10-25T16:23:06.445368+00:00",
+      "http_status": 200
+    }
+  },
+  "total_bytes_mb": 67.583
+}

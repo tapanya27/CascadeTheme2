@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "key": "healthcare_facilities",
+  "cached": false,
+  "path": "data\\raw\\india_geodata\\healthcare_facilities\\INDIA_HEALTH_FACILITIES_NIC.geojson",
+  "bytes": 49502037,
+  "bytes_mb": 49.502,
+  "source_url": "https://github.com/yashveeeeeeer/india-geodata/releases/download/healthcare%2Ffacilities/INDIA_HEALTH_FACILITIES_NIC.geojson",
+  "tag": "healthcare/facilities",
+  "description": "NIC India health facilities points (PHC/CHC/hospitals)",
+  "license_note": "See India Geodata healthcare/facilities release",
+  "retrieved_at": "2026-10-25T16:23:06.445368+00:00",
+  "http_status": 200
+}

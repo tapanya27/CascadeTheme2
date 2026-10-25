@@ -1,0 +1,56 @@
+{
+  "cascade": {
+    "scenario_type": "multi_failure",
+    "graph_nodes": 6,
+    "graph_edges": 5,
+    "n_zone_impacts": 4,
+    "n_dependency_explanations": 0,
+    "assumptions_present": true,
+    "concepts_separated": {
+      "forecast_likelihood": "not modified by this cascade simulator",
+      "vulnerability_impact": "multifactor score/rank deltas above",
+      "data_quality": "confidence fields remain coverage heuristics"
+    },
+    "repeat_same_failed_infra": true,
+    "outcome_kind": "simulated_NOT_observed"
+  },
+  "resilience": {
+    "seed": 42,
+    "scenarios": [
+      {
+        "drop_fraction": 0.2,
+        "dropped_sources": [
+          "flood"
+        ],
+        "top3_jaccard_vs_baseline": 1.0,
+        "recovery_jaccard": 1.0
+      },
+      {
+        "drop_fraction": 0.4,
+        "dropped_sources": [
+          "flood",
+          "road"
+        ],
+        "top3_jaccard_vs_baseline": 1.0,
+        "recovery_jaccard": 1.0
+      },
+      {
+        "drop_fraction": 0.6,
+        "dropped_sources": [
+          "population",
+          "infrastructure",
+          "flood"
+        ],
+        "top3_jaccard_vs_baseline": 1.0,
+        "recovery_jaccard": 1.0
+      }
+    ],
+    "reproducible_same_seed": true,
+    "explicit_non_claims": [
+      "Federated learning is NOT implemented.",
+      "Formal differential privacy is NOT implemented.",
+      "Ranking stability is not forecast skill."
+    ],
+    "outcome_kind": "simulated_ranking_stability_NOT_predictive_skill"
+  }
+}

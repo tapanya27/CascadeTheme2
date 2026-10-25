@@ -1,0 +1,11 @@
+FID,StartDate,EndDate,State,Districts,MainCause,EventSour,Number,cause_index,city_id,study_bbox,observation_kind,label_family,not_flood_atlas
+UEI-IMD-FL-2015-0084,21-04-2015,21-04-2015,TAMIL NADU,Thiruvallur,Heavy rains,IMD,72,2,chennai,"(80.16, 12.95, 80.34, 13.2)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0087,17-05-2015,19-05-2015,TAMIL NADU,Thiruvallur,Heavy rains,IMD,75,2,chennai,"(80.16, 12.95, 80.34, 13.2)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0088,17-06-2015,17-06-2015,TAMIL NADU,Chennai,Heavy rains,IMD,76,2,chennai,"(80.16, 12.95, 80.34, 13.2)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0090,17-07-2015,17-07-2015,TAMIL NADU,Chennai,Heavy rains,IMD,77,2,chennai,"(80.16, 12.95, 80.34, 13.2)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0092,11-11-2015,13-11-2015,TAMIL NADU,Chennai,Heavy rains,IMD,78,2,chennai,"(80.16, 12.95, 80.34, 13.2)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0092,11-11-2015,13-11-2015,TAMIL NADU,Thiruvallur,Heavy rains,IMD,78,2,chennai,"(80.16, 12.95, 80.34, 13.2)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0093,18-11-2015,22-11-2015,TAMIL NADU,Chennai,Heavy rains,IMD,79,2,chennai,"(80.16, 12.95, 80.34, 13.2)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0093,18-11-2015,22-11-2015,TAMIL NADU,Kancheepuram,Heavy rains,IMD,79,2,chennai,"(80.16, 12.95, 80.34, 13.2)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0093,18-11-2015,22-11-2015,TAMIL NADU,Thiruvallur,Heavy rains,IMD,79,2,chennai,"(80.16, 12.95, 80.34, 13.2)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0095,28-11-2015,30-11-2015,TAMIL NADU,Chennai,Heavy rains & Floods (Adyar river),IMD,80,1,chennai,"(80.16, 12.95, 80.34, 13.2)",observed_inventory,india_flood_inventory,True

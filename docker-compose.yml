@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: critical1-postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-critical1}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-critical1_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-critical1}
+    ports:
+      # Host 5433 avoids clashing with a local PostgreSQL on 5432
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - critical1_pgdata:/var/lib/postgresql/data
+      - ./backend/scripts/init_postgis.sql:/docker-entrypoint-initdb.d/01_init_postgis.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-critical1} -d ${POSTGRES_DB:-critical1}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Optional API container for deployment-style local runs.
+  # Build context expects a fresh DB; run migrations on start.
+  api:
+    profiles: ["full"]
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: critical1-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-critical1}:${POSTGRES_PASSWORD:-critical1_dev}@db:5432/${POSTGRES_DB:-critical1}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  critical1_pgdata:

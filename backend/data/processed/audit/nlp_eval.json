@@ -1,0 +1,108 @@
+{
+  "generated_at": "2026-10-25T12:09:27.805997+00:00",
+  "corpus_path": "data\\processed\\disaster_response_messages\\normalized_reports.parquet",
+  "n_rows": 37,
+  "source_mix": {
+    "seed": 37
+  },
+  "binary_related": {
+    "n_train": 27,
+    "n_test": 10,
+    "positive_rate_test": 0.7,
+    "confusion_matrix": {
+      "tn": 0,
+      "fp": 3,
+      "fn": 0,
+      "tp": 7
+    },
+    "class_wise": {
+      "unrelated_0": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 3
+      },
+      "related_1": {
+        "precision": 0.7,
+        "recall": 1.0,
+        "f1": 0.8235294117647058,
+        "support": 7
+      }
+    },
+    "macro_f1": 0.4117647058823529,
+    "classification_report": {
+      "0": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 3.0
+      },
+      "1": {
+        "precision": 0.7,
+        "recall": 1.0,
+        "f1-score": 0.8235294117647058,
+        "support": 7.0
+      },
+      "accuracy": 0.7,
+      "macro avg": {
+        "precision": 0.35,
+        "recall": 0.5,
+        "f1-score": 0.4117647058823529,
+        "support": 10.0
+      },
+      "weighted avg": {
+        "precision": 0.48999999999999994,
+        "recall": 0.7,
+        "f1-score": 0.5764705882352941,
+        "support": 10.0
+      }
+    },
+    "mean_positive_proba": 0.5784374428164901
+  },
+  "multilabel": {
+    "trained": true,
+    "micro_f1": 0.3333333333333333,
+    "macro_f1": 0.2857142857142857,
+    "per_label_support": {
+      "flooding": 1,
+      "medical_needs": 2,
+      "blocked_roads": 2,
+      "electricity": 0,
+      "water": 1,
+      "shelter": 1,
+      "infrastructure_damage": 2
+    }
+  },
+  "pii_redaction_tests": [
+    {
+      "input": "email me at alice@example.com please",
+      "output": "email me at [EMAIL_REDACTED] please",
+      "tags": [
+        "email"
+      ],
+      "passed": true
+    },
+    {
+      "input": "call 555-123-4567 now",
+      "output": "call [PHONE_REDACTED] now",
+      "tags": [
+        "phone"
+      ],
+      "passed": true
+    },
+    {
+      "input": "id 1234567890123 leaked",
+      "output": "id [LONG_DIGIT_REDACTED] leaked",
+      "tags": [
+        "long_digit"
+      ],
+      "passed": true
+    }
+  ],
+  "human_review_policy": "Reports with related_proba in [0.4, 0.6], related-without-labels, duplicates, or PII redactions are flagged needs_human_review=true.",
+  "limitations": [
+    "Corpus may be seed-only if upstream GitHub CSV was unavailable.",
+    "Historical messages are not a live crisis feed.",
+    "Held-out split is random stratified within corpus \u2014 not temporal crisis deployment."
+  ]
+}

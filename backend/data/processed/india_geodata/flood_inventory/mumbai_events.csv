@@ -1,0 +1,12 @@
+FID,StartDate,EndDate,State,Districts,MainCause,EventSour,Number,cause_index,city_id,study_bbox,observation_kind,label_family,not_flood_atlas
+UEI-IMD-FL-2014-0051,13-07-2014,13-07-2014,MAHARASHTRA,Mumbai,Heavy rains,IMD,257,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2014-0053,31-07-2014,31-07-2014,MAHARASHTRA,Mumbai,Heavy rains,IMD,259,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0069,28-07-2015,28-07-2015,MAHARASHTRA,Mumbai,Heavy rains,IMD,62,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0070,29-07-2015,29-07-2015,MAHARASHTRA,Mumbai,Heavy rains,IMD,63,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0070,29-07-2015,29-07-2015,MAHARASHTRA,Mumbai Suburban,Heavy rains,IMD,63,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0070,29-07-2015,29-07-2015,MAHARASHTRA,Thane,Heavy rains,IMD,63,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0093,20-06-2016,20-06-2016,MAHARASHTRA,Mumbai,Heavy rain,IMD,175,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0094,25-06-2016,25-06-2016,MAHARASHTRA,Mumbai,Heavy rain,IMD,176,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0095,01-07-2016,03-07-2016,MAHARASHTRA,Mumbai,Heavy rain,IMD,177,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0100,30-07-2016,31-07-2016,MAHARASHTRA,Mumbai,Heavy rain,IMD,182,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0101,01-08-2016,01-08-2016,MAHARASHTRA,Thane,Heavy rain,IMD,183,2,mumbai,"(72.77, 18.89, 72.98, 19.3)",observed_inventory,india_flood_inventory,True

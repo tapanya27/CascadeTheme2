@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "mumbai_healthcare",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "Gharapuri", "type": "SCE", "place": "Gharapuri, URAN", "district": "Raigarh", "state": "MAHARASHTRA", "source": "nic", "layer": "sub_center", "village_id": "187437", "source_id": 63898 }, "geometry": { "type": "Point", "coordinates": [ 72.931291999680681, 18.960838499563817 ] } }
+]
+}

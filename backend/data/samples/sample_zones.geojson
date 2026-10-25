@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "code": "NAG-SAMPLE-01",
+        "name": "Sample Import Zone",
+        "description": "Example GeoJSON zone for import testing"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [79.085, 21.140],
+            [79.095, 21.140],
+            [79.095, 21.150],
+            [79.085, 21.150],
+            [79.085, 21.140]
+          ]
+        ]
+      }
+    }
+  ]
+}

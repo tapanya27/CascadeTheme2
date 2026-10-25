@@ -1,0 +1,18 @@
+{
+  "created_at": "2026-10-25T12:18:10.090662+00:00",
+  "binary_f1_heldout": 0.8571428571428571,
+  "multilabel": {
+    "trained": false
+  },
+  "taxonomy": [
+    "flooding",
+    "medical_needs",
+    "blocked_roads",
+    "electricity",
+    "water",
+    "shelter",
+    "infrastructure_damage"
+  ],
+  "n_rows": 37,
+  "disclaimer": "Trained on historical/seed corpora \u2014 not a live crisis feed. Held-out F1 is in-corpus only."
+}

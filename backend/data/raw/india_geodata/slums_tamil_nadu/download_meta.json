@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "key": "slums_tamil_nadu",
+  "cached": false,
+  "path": "data\\raw\\india_geodata\\slums_tamil_nadu\\TNGIS_TN_Slum_Boundaries.parquet",
+  "bytes": 920654,
+  "bytes_mb": 0.921,
+  "source_url": "https://github.com/yashveeeeeeer/india-geodata/releases/download/urban%2Fboundaries/TNGIS_TN_Slum_Boundaries.parquet",
+  "tag": "urban/boundaries",
+  "description": "Tamil Nadu slum boundaries (covers Chennai when clipped)",
+  "license_note": "See India Geodata urban/boundaries",
+  "retrieved_at": "2026-10-25T16:13:06.465501+00:00",
+  "http_status": 200
+}

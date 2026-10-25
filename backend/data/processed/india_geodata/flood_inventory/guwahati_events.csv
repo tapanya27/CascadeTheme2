@@ -1,0 +1,25 @@
+FID,StartDate,EndDate,State,Districts,MainCause,EventSour,Number,cause_index,city_id,study_bbox,observation_kind,label_family,not_flood_atlas
+UEI-IMD-FL-2014-0004,22-06-2014,28-06-2014,ASSAM,Darrang,Flood (Brahmaputra and its tributories),IMD,213,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2014-0004,22-06-2014,28-06-2014,ASSAM,Kamrup Metropolitan,Flood (Brahmaputra and its tributories),IMD,213,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2014-0008,15-08-2014,31-08-2014,ASSAM,Darrang,Flood (Brahmaputra and its tributories),IMD,217,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2014-0008,15-08-2014,31-08-2014,ASSAM,Kamrup,Flood (Brahmaputra and its tributories),IMD,217,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2014-0009,22-09-2014,30-09-2014,ASSAM,Darrang,Flood (Brahmaputra and its tributories),IMD,218,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2014-0009,22-09-2014,30-09-2014,ASSAM,Kamrup,Flood (Brahmaputra and its tributories),IMD,218,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0007,09-06-2015,17-06-2015,ASSAM,Darrang,Flood(Brahmaputra and tributaries),IMD,5,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0007,09-06-2015,17-06-2015,ASSAM,Kamrup,Flood(Brahmaputra and tributaries),IMD,5,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0007,09-06-2015,17-06-2015,ASSAM,Kamrup Metropolitan,Flood(Brahmaputra and tributaries),IMD,5,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0010,19-08-2015,23-08-2015,ASSAM,Darrang,Flood (Brahmaputra  and tributaries),IMD,7,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0010,19-08-2015,23-08-2015,ASSAM,Kamrup,Flood (Brahmaputra  and tributaries),IMD,7,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0011,25-08-2015,31-08-2015,ASSAM,Darrang,Flood (Brahmaputra  and tributaries),IMD,8,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0011,25-08-2015,31-08-2015,ASSAM,Kamrup,Flood (Brahmaputra  and tributaries),IMD,8,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0012,01-09-2015,12-09-2015,ASSAM,Darrang,Flood (Brahmaputra  and tributaries),IMD,9,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0012,01-09-2015,12-09-2015,ASSAM,Kamrup,Flood (Brahmaputra  and tributaries),IMD,9,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0012,01-09-2015,12-09-2015,ASSAM,Kamrup Metropolitan,Flood (Brahmaputra  and tributaries),IMD,9,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2015-0013,23-09-2015,25-09-2015,ASSAM,Kamrup,Heavy rains,IMD,10,2,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0014,03-07-2016,07-07-2016,ASSAM,Kamrup Metropolitan,Flood  ( Brahmaputra and tributaries),IMD,100,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0017,14-07-2016,14-07-2016,ASSAM,Kamrup Metropolitan,Landslide,IMD,102,3,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0018,21-07-2016,31-07-2016,ASSAM,Darrang,Flood  ( Brahmaputra and tributaries),IMD,103,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0018,21-07-2016,31-07-2016,ASSAM,Kamrup,Flood  ( Brahmaputra and tributaries),IMD,103,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0019,01-08-2016,05-08-2016,ASSAM,Darrang,Flood  ( Brahmaputra and tributaries,IMD,104,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0019,01-08-2016,05-08-2016,ASSAM,Kamrup Metropolitan,Flood  ( Brahmaputra and tributaries,IMD,104,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True
+UEI-IMD-FL-2016-0019,01-08-2016,05-08-2016,ASSAM,Kamrup,Flood  ( Brahmaputra and tributaries,IMD,104,1,guwahati,"(91.58, 26.1, 91.85, 26.25)",observed_inventory,india_flood_inventory,True

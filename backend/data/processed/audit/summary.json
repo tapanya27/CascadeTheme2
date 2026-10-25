@@ -1,0 +1,7 @@
+{
+  "ew_test_positives": 24,
+  "ew_gb_pr_auc": 0.0743833515893712,
+  "nlp_related_f1": 0.9090909090909091,
+  "dual_top3_jaccard": 0.5,
+  "resilience_reproducible": true
+}

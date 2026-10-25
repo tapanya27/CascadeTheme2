@@ -1,0 +1,25 @@
+{
+  "path": "data\\processed\\india_geodata\\zone_features_india_geodata.parquet",
+  "n_rows": 200,
+  "columns": [
+    "city_id",
+    "zone_code",
+    "lon",
+    "lat",
+    "crs",
+    "population_est_demo",
+    "flood_exposure_index_demo",
+    "inventory_events_in_city_bbox",
+    "distance_to_nearest_inventory_event_km",
+    "wards_in_city_bbox",
+    "slums_in_city_bbox",
+    "atlas_joined",
+    "feature_sources",
+    "observation_kind",
+    "worldpop_density_2020",
+    "nearest_healthcare_km",
+    "healthcare_count_in_bbox"
+  ],
+  "created_at": "2026-10-25T16:26:48.632818+00:00",
+  "notes": "Flood hazard labels remain in labels_zenodo_csv; this table is for community vulnerability / exposure ranking \u2014 not flood onset prediction."
+}
