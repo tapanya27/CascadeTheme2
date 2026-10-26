@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { ShieldAlert } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -203,6 +205,12 @@ export default function AlertsPage() {
                     </div>
                   </dl>
                   <div className="flex flex-wrap gap-2 pt-1">
+                    <Button asChild variant="secondary" className="gap-1.5">
+                      <Link href={`/community-risk?alert_id=${a.id}`}>
+                        <ShieldAlert className="h-3.5 w-3.5 text-primary" />
+                        Community Impact
+                      </Link>
+                    </Button>
                     {a.has_reliable_coords ? (
                       <Button type="button" onClick={() => showOnMap(a)}>
                         Show Me on the Map

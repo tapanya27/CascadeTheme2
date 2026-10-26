@@ -536,6 +536,37 @@ export const api = {
       unread_count: number;
       results: Record<string, unknown>[];
     }>(withCity("/api/alerts/poll", cityId), { method: "POST" }),
+  communityRiskOverview: (cityId: string) =>
+    request<CommunityRiskOverviewResponse>(
+      withCity("/api/community-impact/overview", cityId)
+    ),
+  alertCommunityImpact: (cityId: string, alertId: string, radiusM?: number) =>
+    request<CommunityImpactAnalysisResponse>(
+      withCity(
+        `/api/community-impact/alert/${encodeURIComponent(alertId)}${
+          radiusM ? `?radius_m=${radiusM}` : ""
+        }`,
+        cityId
+      )
+    ),
+  analyzeCustomCommunityImpact: (
+    cityId: string,
+    body: {
+      alert_id?: string;
+      lon?: number;
+      lat?: number;
+      radius_m?: number;
+      alert_type?: string;
+    }
+  ) =>
+    request<CommunityImpactAnalysisResponse>(
+      withCity("/api/community-impact/analyze", cityId),
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    ),
 };
 
 export type LiveAlert = {
@@ -809,3 +840,154 @@ export type SubmitReportResponse = {
   disclaimer: string;
   classification?: Record<string, unknown>;
 };
+
+export type AffectedCommunity = {
+  zone_id: string;
+  zone_code: string;
+  zone_name: string;
+  distance_m: number;
+  distance_km: number;
+  centroid: { lon: number; lat: number };
+  boundary_geojson?: Record<string, unknown> | null;
+  vulnerability_score: number | null;
+  vulnerability_category: string;
+  impact_severity: "critical" | "high" | "moderate" | "low" | "unknown";
+  impact_color: string;
+  confidence: number | null;
+  is_synthetic: boolean;
+  data_source_name: string;
+  top_vulnerability_factors: string[];
+  reasons: string[];
+  explanation: string;
+  assessment_available: boolean;
+  hazard_only_score?: number | null;
+  hazard_only_rank?: number | null;
+  multifactor_rank?: number | null;
+  rank_uplift?: number | null;
+};
+
+export type AffectedInfrastructure = {
+  id: string;
+  name: string;
+  kind: string;
+  distance_m: number;
+  distance_km: number;
+  centroid: { lon: number; lat: number };
+  is_synthetic: boolean;
+  data_source_name: string;
+};
+
+export type DependencyPathwayStep = {
+  source: string;
+  target: string;
+  relation: string;
+};
+
+export type CommunityImpactAnalysisResponse = {
+  city_id: string;
+  city_name: string;
+  alert?: {
+    id: string;
+    title: string;
+    alert_type: string;
+    severity: string;
+    is_demo: boolean;
+    authenticity: string;
+    area_label: string | null;
+    description: string;
+    observed_at?: string | null;
+    lon: number | null;
+    lat: number | null;
+  } | null;
+  analysis_point: {
+    lon: number;
+    lat: number;
+    has_coordinates: boolean;
+    note: string;
+  };
+  impact_radius_m: number;
+  impact_context: {
+    primary_concern: string;
+    infrastructure_focus: string[];
+    impact_factors: string[];
+    dependency_pathway: DependencyPathwayStep[];
+    cascading_mechanism: string;
+  };
+  overall_severity: "critical" | "high" | "moderate" | "low";
+  overall_severity_color: string;
+  summary: {
+    total_communities_affected: number;
+    severity_breakdown: Record<string, number>;
+    max_vulnerability_score: number | null;
+    average_vulnerability_score: number | null;
+    total_infrastructure_in_radius: number;
+    healthcare_facilities_in_radius: number;
+    roads_in_radius: number;
+    synthetic_data_count: number;
+  };
+  affected_communities: AffectedCommunity[];
+  affected_infrastructure: AffectedInfrastructure[];
+  affected_zones_geojson?: GeoJsonFeatureCollection;
+  recommendations: {
+    priority: "urgent" | "high" | "medium" | "info";
+    action: string;
+    reason: string;
+  }[];
+  impact_circle_geojson: {
+    type: string;
+    geometry: {
+      type: string;
+      coordinates: number[][][];
+    };
+    properties: Record<string, unknown>;
+  };
+  generated_at: string;
+  disclaimers: string[];
+};
+
+export type CommunityRiskItem = {
+  zone_id: string;
+  zone_code: string;
+  zone_name: string;
+  centroid: { lon: number; lat: number };
+  boundary_geojson?: Record<string, unknown> | null;
+  vulnerability_score: number | null;
+  vulnerability_category: string;
+  impact_severity: "critical" | "high" | "moderate" | "low" | "unknown";
+  impact_color: string;
+  confidence: number | null;
+  is_synthetic: boolean;
+  data_source_name: string;
+  top_vulnerability_factors: string[];
+  reasons: string[];
+  explanation: string;
+  assessment_available: boolean;
+  hazard_only_score?: number | null;
+  hazard_only_rank?: number | null;
+  multifactor_rank?: number | null;
+  rank_uplift?: number | null;
+  nearby_active_alerts: {
+    id: string;
+    title: string;
+    alert_type: string;
+    severity: string;
+    distance_km: number;
+    is_demo: boolean;
+  }[];
+  has_active_threat: boolean;
+};
+
+export type CommunityRiskOverviewResponse = {
+  city_id: string;
+  city_name: string;
+  total_communities: number;
+  severity_breakdown: Record<string, number>;
+  average_vulnerability_score: number | null;
+  max_vulnerability_score: number | null;
+  active_alerts_count: number;
+  synthetic_data_count: number;
+  communities: CommunityRiskItem[];
+  generated_at: string;
+  disclaimer: string;
+};
+

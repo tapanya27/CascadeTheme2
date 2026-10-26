@@ -46,6 +46,12 @@ const primaryNav: {
     icon: BellRing,
   },
   {
+    href: "/community-risk",
+    label: "Community Risk & Impact",
+    hint: "Impact radius & fragility",
+    icon: ShieldAlert,
+  },
+  {
     href: "/tasks",
     label: "Verification Tasks",
     hint: "Assigned checks & follow-ups",

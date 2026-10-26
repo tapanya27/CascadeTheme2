@@ -13,6 +13,7 @@ from app.cities.deps import parse_city_id
 from app.database import get_db
 from app.models.alert import LiveAlert
 from app.services import alerts as alert_service
+from app.services import community_impact as impact_service
 
 router = APIRouter(tags=["alerts"])
 
@@ -83,6 +84,25 @@ def get_alert(
     if row is None:
         raise HTTPException(status_code=404, detail="Alert not found for this city.")
     return alert_service.serialize_alert(row)
+
+
+@router.get("/api/alerts/{alert_id}/impact")
+def get_alert_impact(
+    alert_id: uuid.UUID,
+    radius_m: Optional[float] = Query(None, ge=500, le=20000),
+    city_id: str = Depends(parse_city_id),
+    db: Session = Depends(get_db),
+) -> dict[str, Any]:
+    """Analyze community risk and impact around this alert."""
+    result = impact_service.analyze_alert_impact(
+        db,
+        alert_id=alert_id,
+        city_id=city_id,
+        radius_m=radius_m,
+    )
+    if "error" in result:
+        raise HTTPException(status_code=404, detail=result["error"])
+    return result
 
 
 @router.post("/api/alerts/{alert_id}/action")

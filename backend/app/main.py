@@ -16,6 +16,7 @@ from app.api import (
     cascade,
     case_center,
     cities,
+    community_impact,
     dashboard,
     data,
     dependencies,
@@ -90,6 +91,7 @@ def create_app() -> FastAPI:
     app.include_router(early_warning.router)
     app.include_router(reports.router)
     app.include_router(alerts.router)
+    app.include_router(community_impact.router)
     app.include_router(case_center.router)
     app.include_router(cascade.router)
     app.include_router(resilience.router)
