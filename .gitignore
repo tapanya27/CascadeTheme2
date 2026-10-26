@@ -34,8 +34,9 @@ yarn-error.log*
 # IDE / OS
 .idea/
 .vscode/
+*.code-workspace
 *.swp
-.DS_Store
+*.DS_Store
 Thumbs.db
 
 # Data / uploads

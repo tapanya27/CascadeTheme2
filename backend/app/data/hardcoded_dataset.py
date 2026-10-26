@@ -382,11 +382,53 @@ def generate_infrastructure(
         west, south, east, north = city.bbox
         lon = _clamp(lon, west + 0.001, east - 0.001)
         lat = _clamp(lat, south + 0.001, north - 0.001)
+        props: dict[str, Any] = {
+            "is_invented": True,
+            "is_synthetic": True,
+            "observation_kind": "simulated",
+            "synthetic": True,
+            "city_id": city_id,
+            "note": "Location approximate / illustrative — demo data only",
+            "provenance": {
+                "source_id": SOURCE_ID,
+                "invented": True,
+                "disclaimer": PROVENANCE_NOTE,
+            },
+        }
+        if itype == "power_asset":
+            props["asset_kind"] = "power_asset"
+            props["service_label"] = "Electrical distribution (demo)"
         items.append(
             {
                 "external_id": f"{SOURCE_ID}/{prefix}/infra/{i:02d}",
                 "name": name,
                 "infrastructure_type": itype,
+                "city_id": city_id,
+                "lon": round(lon, 6),
+                "lat": round(lat, 6),
+                "zone_code": z["code"],
+                "properties": props,
+                "notes": "Invented demonstration record — not a verified facility.",
+            }
+        )
+
+    # Dedicated demo power assets (new external_ids — do not collide with legacy "other").
+    power_specs = [
+        f"{city.name} Primary Substation (demo)",
+        f"{city.name} Distribution Feeder Hub (demo)",
+    ]
+    for pi, pname in enumerate(power_specs):
+        z = zones[pi % len(zones)]
+        lon = z["centroid"]["lon"] + rng.uniform(-0.006, 0.006)
+        lat = z["centroid"]["lat"] + rng.uniform(-0.006, 0.006)
+        west, south, east, north = city.bbox
+        lon = _clamp(lon, west + 0.001, east - 0.001)
+        lat = _clamp(lat, south + 0.001, north - 0.001)
+        items.append(
+            {
+                "external_id": f"{SOURCE_ID}/{prefix}/power/{pi:02d}",
+                "name": pname,
+                "infrastructure_type": "power_asset",
                 "city_id": city_id,
                 "lon": round(lon, 6),
                 "lat": round(lat, 6),
@@ -397,14 +439,90 @@ def generate_infrastructure(
                     "observation_kind": "simulated",
                     "synthetic": True,
                     "city_id": city_id,
-                    "note": "Location approximate / illustrative",
+                    "asset_kind": "power_asset",
+                    "service_label": "Electrical distribution (demo)",
+                    "note": "Invented demo power asset — not a verified utility record",
                     "provenance": {
                         "source_id": SOURCE_ID,
                         "invented": True,
                         "disclaimer": PROVENANCE_NOTE,
                     },
                 },
-                "notes": "Invented demonstration record — not a verified facility.",
+                "notes": "Invented demonstration power asset — not a verified utility record.",
+            }
+        )
+
+    # City-specific demo bus routes (LineString). Names/stops are invented demo labels.
+    bus_specs = [
+        {
+            "route_number": f"{prefix}-101",
+            "name": f"{city.name} Demo Bus {prefix}-101",
+            "origin": f"{zones[0]['name']} terminal (demo)",
+            "destination": f"{zones[min(5, len(zones)-1)]['name']} terminal (demo)",
+            "stops": [
+                zones[0]["name"],
+                zones[min(2, len(zones) - 1)]["name"],
+                zones[min(5, len(zones) - 1)]["name"],
+            ],
+            "zone_idxs": [0, min(2, len(zones) - 1), min(5, len(zones) - 1)],
+        },
+        {
+            "route_number": f"{prefix}-204",
+            "name": f"{city.name} Demo Bus {prefix}-204",
+            "origin": f"{zones[min(1, len(zones)-1)]['name']} stop (demo)",
+            "destination": f"{zones[min(8, len(zones)-1)]['name']} stop (demo)",
+            "stops": [
+                zones[min(1, len(zones) - 1)]["name"],
+                zones[min(4, len(zones) - 1)]["name"],
+                zones[min(8, len(zones) - 1)]["name"],
+            ],
+            "zone_idxs": [
+                min(1, len(zones) - 1),
+                min(4, len(zones) - 1),
+                min(8, len(zones) - 1),
+            ],
+        },
+    ]
+    for bi, bus in enumerate(bus_specs):
+        coords = []
+        for zi in bus["zone_idxs"]:
+            z = zones[zi]
+            coords.append(
+                [
+                    round(z["centroid"]["lon"] + rng.uniform(-0.002, 0.002), 6),
+                    round(z["centroid"]["lat"] + rng.uniform(-0.002, 0.002), 6),
+                ]
+            )
+        mid = coords[len(coords) // 2]
+        items.append(
+            {
+                "external_id": f"{SOURCE_ID}/{prefix}/bus/{bi:02d}",
+                "name": bus["name"],
+                "infrastructure_type": "bus_route",
+                "city_id": city_id,
+                "lon": mid[0],
+                "lat": mid[1],
+                "line_coordinates": coords,
+                "zone_code": zones[bus["zone_idxs"][0]]["code"],
+                "properties": {
+                    "is_invented": True,
+                    "is_synthetic": True,
+                    "observation_kind": "simulated",
+                    "synthetic": True,
+                    "city_id": city_id,
+                    "asset_kind": "bus_route",
+                    "route_number": bus["route_number"],
+                    "origin": bus["origin"],
+                    "destination": bus["destination"],
+                    "stops": bus["stops"],
+                    "note": "Invented demo bus route — not an official transit timetable",
+                    "provenance": {
+                        "source_id": SOURCE_ID,
+                        "invented": True,
+                        "disclaimer": PROVENANCE_NOTE,
+                    },
+                },
+                "notes": "Invented demonstration bus route — not a verified transit asset.",
             }
         )
     return items

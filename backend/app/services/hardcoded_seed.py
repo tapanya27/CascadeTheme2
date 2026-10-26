@@ -153,12 +153,23 @@ def seed_hardcoded_city(
         if exists:
             continue
         z = zone_by_code.get(idef.get("zone_code") or "")
+        line_coords = idef.get("line_coordinates")
+        if (
+            isinstance(line_coords, list)
+            and len(line_coords) >= 2
+            and idef.get("infrastructure_type") == "bus_route"
+        ):
+            from shapely.geometry import LineString
+
+            geom = to_wkb_element(LineString(line_coords))
+        else:
+            geom = to_wkb_element(Point(idef["lon"], idef["lat"]))
         db.add(
             Infrastructure(
                 city_id=city_id,
                 name=idef["name"],
                 infrastructure_type=InfrastructureType(idef["infrastructure_type"]),
-                geometry=to_wkb_element(Point(idef["lon"], idef["lat"])),
+                geometry=geom,
                 external_id=idef["external_id"],
                 properties=idef["properties"],
                 notes=idef.get("notes"),

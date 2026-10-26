@@ -28,6 +28,8 @@ class InfrastructureType(str, enum.Enum):
     clinic = "clinic"
     emergency_facility = "emergency_facility"
     road = "road"
+    bus_route = "bus_route"
+    power_asset = "power_asset"
     other = "other"
 
 
